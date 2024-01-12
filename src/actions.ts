@@ -1,5 +1,5 @@
 import Git from './git';
-
+import './ui'
 class Actions {
 
     private git: Git;
@@ -9,8 +9,9 @@ class Actions {
     }
 
 
-    deleteGitBranch(args: any[]) {
-        const branches = this.git.getLocalBranches()
+    async deleteGitBranch(args: any[]) {
+        const branches = await this.git.getLocalBranches()
+
     }
 }
 

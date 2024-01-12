@@ -9,10 +9,13 @@ class Git {
 
     async getLocalBranches() {
         // 子模块也需要同步获取到
-        const cwd = process.cwd();
-        const branches = await this.simpleGit.branchLocal();
-        console.log('branches: ', branches);
-        console.log('cwd: ', cwd);
+        const branchResult = await this.simpleGit.branchLocal();
+        const branches = Object.values(branchResult.branches).map(branch => ({
+            name: branch.name,
+            value: branch.label
+        }))
+
+        return branches
     }
 }
 

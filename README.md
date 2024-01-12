@@ -1,4 +1,4 @@
 # gbkill
 Delete git branches in batches
 
-https://blog.logrocket.com/building-typescript-cli-node-js-commander/
+https://www.codefeetime.com/post/rollup-config-for-react-component-library-with-typescript-scss/
