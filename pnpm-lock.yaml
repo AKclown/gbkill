@@ -8,9 +8,9 @@ dependencies:
   '@types/figlet':
     specifier: ^1.5.8
     version: registry.npmmirror.com/@types/figlet@1.5.8
-  chalk:
-    specifier: ^5.3.0
-    version: registry.npmmirror.com/chalk@5.3.0
+  colors:
+    specifier: ^1.4.0
+    version: registry.npmmirror.com/colors@1.4.0
   commander:
     specifier: ^11.1.0
     version: registry.npmmirror.com/commander@11.1.0
@@ -73,11 +73,11 @@ packages:
       undici-types: registry.npmmirror.com/undici-types@5.26.5
     dev: true
 
-  registry.npmmirror.com/chalk@5.3.0:
-    resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/chalk/-/chalk-5.3.0.tgz}
-    name: chalk
-    version: 5.3.0
-    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+  registry.npmmirror.com/colors@1.4.0:
+    resolution: {integrity: sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/colors/-/colors-1.4.0.tgz}
+    name: colors
+    version: 1.4.0
+    engines: {node: '>=0.1.90'}
     dev: false
 
   registry.npmmirror.com/commander@11.1.0:

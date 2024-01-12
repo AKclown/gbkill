@@ -28,11 +28,11 @@
   ],
   "scripts": {
     "build": "npx tsc",
-    "build:watch": "npx tsc --watch"
+    "start": "npx tsc --watch"
   },
   "dependencies": {
     "@types/figlet": "^1.5.8",
-    "chalk": "^5.3.0",
+    "colors": "^1.4.0",
     "commander": "^11.1.0",
     "figlet": "^1.7.0",
     "simple-git": "^3.22.0"
