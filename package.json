@@ -2,10 +2,10 @@
   "name": "gbkill",
   "version": "0.0.1",
   "description": "Delete git branches in batches",
-  "exports": "./lib/index.js",
+  "exports": "./src/index.js",
   "type": "module",
   "bin": {
-    "gbkill": "lib/index.js"
+    "gbkill": "./src/index.js"
   },
   "engines": {
     "node": ">=16.20.0"
@@ -25,14 +25,15 @@
     "delete"
   ],
   "files": [
-    "lib/**/*"
+    "lib"
   ],
   "scripts": {
-    "build": "npx tsc",
-    "start": "npx tsc --watch"
+    "preinstall": "npx only-allow pnpm",
+    "build": "yarn run clean:build && npx tsc",
+    "dev": "yarn run clean:build && npx tsc --watch",
+    "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts"
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@types/figlet": "^1.5.8",
     "colors": "^1.4.0",
     "commander": "^11.1.0",
@@ -45,19 +46,11 @@
     "simple-git": "^3.22.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.7",
-    "@babel/preset-env": "^7.23.8",
-    "@babel/preset-react": "^7.23.3",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^11.1.6",
     "@types/commander": "^2.12.2",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.0",
-    "rollup": "^4.9.5",
+    "shelljs": "^0.8.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
 }

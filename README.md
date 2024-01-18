@@ -1,4 +1,6 @@
 # gbkill
 Delete git branches in batches
 
-https://www.codefeetime.com/post/rollup-config-for-react-component-library-with-typescript-scss/
+https://github.com/TypeStrong/ts-node/issues/1997
+
+https://github.com/vadimdemedes/create-ink-app/blob/main/templates/ts/source/cli.tsx

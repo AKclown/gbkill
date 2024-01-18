@@ -2,7 +2,7 @@ import { simpleGit, SimpleGit } from 'simple-git'
 class Git {
 
     private simpleGit: SimpleGit
-
+ 
     constructor() {
         this.simpleGit = simpleGit();
     }

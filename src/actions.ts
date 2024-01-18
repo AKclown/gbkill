@@ -1,5 +1,5 @@
-import Git from './git';
-import './ui'
+import Git from './git.js';
+import './ui.js'
 class Actions {
 
     private git: Git;
