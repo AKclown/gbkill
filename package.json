@@ -1,0 +1,56 @@
+{
+  "name": "gbkill",
+  "version": "0.0.1",
+  "description": "Delete git branches in batches",
+  "exports": "./src/index.js",
+  "type": "module",
+  "bin": {
+    "gbkill": "./src/index.js"
+  },
+  "engines": {
+    "node": ">=16.20.0"
+  },
+  "author": "AKclown",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AKclown/gbkill"
+  },
+  "license": "MIT",
+  "keywords": [
+    "cli",
+    "git",
+    "npm",
+    "clean",
+    "tool",
+    "delete"
+  ],
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "build": "yarn run clean:build && npx tsc",
+    "dev": "yarn run clean:build && npx tsc --watch",
+    "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts"
+  },
+  "dependencies": {
+    "@types/figlet": "^1.5.8",
+    "colors": "^1.4.0",
+    "commander": "^11.1.0",
+    "figlet": "^1.7.0",
+    "ink": "^4.4.1",
+    "inquirer": "^8.2.6",
+    "react": "^18.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-scss": "^4.0.0",
+    "simple-git": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.0",
+    "shelljs": "^0.8.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
