@@ -2,7 +2,7 @@
 import { Command } from 'commander';
 import figlet from "figlet";
 import colors from 'colors';
-// import pkg from '../package.json';
+import pkg from '../package.json' assert { type: "json" };
 import Actions from './actions.js';
 
 class Main {
@@ -27,9 +27,9 @@ class Main {
 
     registerCommand() {
         this.program
-            .name('ak')
-            .version('ak')
-            .description('ak')
+            .name(pkg.name)
+            .version(pkg.version)
+            .description(pkg.description)
             .option('-r, --remote', '是否同时删除远程分支')
             .action((args) => this.actions!.deleteGitBranch(args))
 
