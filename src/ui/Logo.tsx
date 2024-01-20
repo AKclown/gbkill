@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { render, Box, Text, Newline } from 'ink';
+import React from 'react';
+import { Box, Text, Newline } from 'ink';
 import Gradient from 'ink-gradient';
 import BigText from 'ink-big-text';
 import pkg from '../../package.json' assert { type: "json" };

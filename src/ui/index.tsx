@@ -10,7 +10,6 @@ class UI {
     }
 
     render(branches: Array<any>) {
-        console.log('Branches: ', branches);
         inkRender(<Template branches={branches} />)
     }
 
