@@ -1,6 +1,5 @@
 
 import { Command } from 'commander';
-import figlet from "figlet";
 import colors from 'colors';
 import pkg from '../package.json' assert { type: "json" };
 import Actions from './actions.js';
@@ -16,13 +15,9 @@ class Main {
 
     init() {
         let chain = Promise.resolve();
-        chain = chain.then(() => this.printLogo())
+        // chain = chain.then(() => this.printLogo())
         chain = chain.then(() => { this.actions = new Actions() })
         chain = chain.then(() => this.registerCommand())
-    }
-
-    printLogo() {
-        console.log(colors.green(figlet.textSync("GB Kill")))
     }
 
     registerCommand() {

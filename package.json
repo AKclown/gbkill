@@ -34,21 +34,22 @@
     "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts"
   },
   "dependencies": {
-    "@types/figlet": "^1.5.8",
     "colors": "^1.4.0",
     "commander": "^11.1.0",
-    "figlet": "^1.7.0",
     "ink": "^4.4.1",
+    "ink-big-text": "^2.0.0",
+    "ink-gradient": "^3.0.0",
+    "ink-table": "^3.1.0",
     "inquirer": "^8.2.6",
     "react": "^18.2.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-scss": "^4.0.0",
     "simple-git": "^3.22.0"
   },
   "devDependencies": {
     "@types/commander": "^2.12.2",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.0",
+    "@types/react": "^18.2.48",
+    "@types/shelljs": "^0.8.15",
     "shelljs": "^0.8.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
