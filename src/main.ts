@@ -1,6 +1,5 @@
 
 import { Command } from 'commander';
-import figlet from "figlet";
 import colors from 'colors';
 import pkg from '../package.json' assert { type: "json" };
 import Actions from './actions.js';
@@ -16,13 +15,20 @@ class Main {
 
     init() {
         let chain = Promise.resolve();
-        chain = chain.then(() => this.printLogo())
+        chain = chain.then(() => this.prepare())
         chain = chain.then(() => { this.actions = new Actions() })
         chain = chain.then(() => this.registerCommand())
+        chain = chain.then(() => this.exitListener())
     }
 
-    printLogo() {
-        console.log(colors.green(figlet.textSync("GB Kill")))
+    prepare() {
+        /**
+         * TODO：前期准备
+         * 1. cli版本
+         * 2. Node版本
+         * 3. 降级root账户
+         * 4. 检查用户主目录
+         */
     }
 
     registerCommand() {
@@ -43,6 +49,14 @@ class Main {
         });
         this.program.parse(process.argv);
     }
+
+    exitListener() {
+        process.on('beforeExit', (code) => {
+            this.actions!.exit(code)
+            process.exit(code)
+        })
+    }
+
 }
 
 const main = new Main()
