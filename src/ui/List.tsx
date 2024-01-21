@@ -43,6 +43,8 @@ const List: React.FC<IList> = (props) => {
     // *********************
     // View
     // *********************
+    // TODO 整行背景高亮，暂时不支持等其支持在处理
+    //  https://github.com/vadimdemedes/ink/issues/598
 
     return (
         <Box flexDirection="column" ref={screen}>

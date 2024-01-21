@@ -18,7 +18,7 @@ const Exit: React.FC<IExit> = (props) => {
                 </Box> :
                     <Box>
                         <Link url="https://github.com/AKclown/gbkill">
-                            <Text> 🤡 Thanks for using {pkg.name}! Give suggestions for improvement 🤡</Text>
+                            <Text>🤡 Thanks for using {pkg.name}! Give suggestions for improvement 🤡</Text>
                         </Link>
                     </Box>
             }
