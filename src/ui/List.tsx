@@ -1,5 +1,7 @@
-import React from 'react';
-import { Box, Text, Newline, Spacer } from 'ink';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { Box, Key, Text, measureElement, useInput } from 'ink';
+import useHighlightLine from './HighlightLine.js';
+import userInput from './userInput.js'
 
 interface IList {
     branches: Array<any>;
@@ -9,26 +11,52 @@ const List: React.FC<IList> = (props) => {
 
     const highlight = 0
 
-    const getStyle = (index: number) => {
-        return highlight === index ? {
-            backgroundColor: '#2167B5',
-            color: '#fff'
-        } : {}
-    }
+    // *********************
+    // Hooks Function
+    // *********************
+
+    const screen = useRef(null)
+    const paintBgRow = useHighlightLine()
+    const [columns, setColumns] = useState(0)
+    const [row, setRow] = useState(13)
+
+    userInput()
+    // *********************
+    // Life Cycle Function
+    // *********************
+
+    // TODO 暂时不知道如何绘制背景线条
+    // paintBgRow(row, 100)
+
+    useEffect(() => {
+        //     const { width } = measureElement(screen.current!);
+        //     setColumns(width)
+
+
+    }, []);
+
+    // *********************
+    // Service Function
+    // *********************
+
+
+    // *********************
+    // View
+    // *********************
 
     return (
-        <Box flexDirection="column">
+        <Box flexDirection="column" ref={screen}>
             {
                 props.branches.map((item, index) => {
                     return (
                         <Box key={index}>
                             <Box width='30%'>
-                                <Text {...getStyle(index)} >{item.name}</Text>
+                                <Text wrap="truncate-end" color={index === highlight ? 'blue' : 'gray'} >{item.name}</Text>
                             </Box>
                             <Box flexGrow={1}>
-                                <Text wrap="truncate-end" {...getStyle(index)}>{item.value}</Text>
+                                <Text wrap="truncate-end" color={index === highlight ? 'blue' : 'gray'} >{item.value}</Text>
                             </Box>
-                            <Text {...getStyle(index)}>No</Text>
+                            <Text color={index === highlight ? 'blue' : 'gray'} >No</Text>
                         </Box>
                     )
                 })

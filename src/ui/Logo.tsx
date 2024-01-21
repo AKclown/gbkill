@@ -13,16 +13,17 @@ const Logo: React.FC<ILogo> = (props) => {
     return (
         <Box alignItems="flex-end">
             <Box>
-                <Gradient name='rainbow'  >
+                <Gradient name='rainbow'>
                     <BigText text={pkg.name} font="simpleBlock" space={false} />
                 </Gradient>
             </Box>
-            <Box marginLeft={2} >
-                <Text>
+
+            <Box marginLeft={2} flexDirection="column" >
+                <Box>
                     <Text color="green">Branches:</Text>
                     <Text color="#D98A5C"> {props.branchNumber}</Text>
                     <Newline />
-                </Text>
+                </Box>
             </Box>
         </Box>
     )

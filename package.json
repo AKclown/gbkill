@@ -34,12 +34,14 @@
     "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts"
   },
   "dependencies": {
+    "ansi-escapes": "^6.2.0",
     "colors": "^1.4.0",
     "commander": "^11.1.0",
     "ink": "^4.4.1",
     "ink-ascii": "^0.0.4",
     "ink-big-text": "^2.0.0",
     "ink-gradient": "^3.0.0",
+    "ink-link": "^3.0.0",
     "ink-table": "^3.1.0",
     "inquirer": "^8.2.6",
     "react": "^18.2.0",
@@ -51,6 +53,7 @@
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.48",
     "@types/shelljs": "^0.8.15",
+    "cross-env": "^7.0.3",
     "shelljs": "^0.8.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"

@@ -14,6 +14,10 @@ class Actions {
         const branches = await this.git.getLocalBranches()
         this.ui.render(branches);
     }
+
+    async exit(code: number) {
+        this.ui.renderExit(code);
+    }
 }
 
 export default Actions
