@@ -13,11 +13,12 @@ class UI {
         this.git = git
     }
 
-    onEventTrigger(branches: Array<any>) {
+    onEventTrigger(taskId: string, branchName: string) {
+        this.git.deleteLocalBranch(taskId, branchName)
     }
 
     render(branches: Array<any>) {
-        const { clear } = inkRender(<Template branches={branches} onEventTrigger={this.onEventTrigger} />)
+        const { clear } = inkRender(<Template branches={branches} onEventTrigger={this.onEventTrigger.bind(this)} />)
         this.clear = clear
     }
 

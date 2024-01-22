@@ -42,13 +42,13 @@
     "ink-big-text": "^2.0.0",
     "ink-gradient": "^3.0.0",
     "ink-link": "^3.0.0",
+    "ink-spinner": "^5.0.0",
     "ink-table": "^3.1.0",
     "inquirer": "^8.2.6",
     "react": "^18.2.0",
     "simple-git": "^3.22.0"
   },
   "devDependencies": {
-    "@types/commander": "^2.12.2",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.0",
     "@types/react": "^18.2.48",

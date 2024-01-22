@@ -6,7 +6,7 @@ import List from './List.js';
 
 interface ITemplate {
     branches: Array<any>;
-    onEventTrigger: (branches: Array<any>) => void;
+    onEventTrigger: (taskId: string, branchName: string) => void;
 }
 
 const Template: React.FC<ITemplate> = (props) => {

@@ -20,6 +20,11 @@ const Logo: React.FC<ILogo> = (props) => {
 
             <Box marginLeft={2} flexDirection="column" >
                 <Box>
+                    <Text color="green">Error: </Text>
+                    <Text backgroundColor="#EA3323"> {0} </Text>
+                </Box>
+                <Box>
+
                     <Text color="green">Branches:</Text>
                     <Text color="#D98A5C"> {props.branchNumber}</Text>
                     <Newline />

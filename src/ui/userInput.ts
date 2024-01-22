@@ -5,13 +5,23 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useInput, Key } from 'ink';
 
-const userInput = (maxLen: number) => {
+export interface IRange {
+    start: number;
+    end: number;
+}
+
+export interface IEventTrigger {
+    onSpace: (range: IRange) => void;
+    onTab: (range: IRange) => void;
+}
+
+const userInput = (maxLen: number, eventTrigger: IEventTrigger) => {
     // 批量选择的 - 基准下标
     const [benchmark, setBenchmark] = useState(0);
     const [isBatch, setIsBatch] = useState(false);
     // 当前活动下标
     const [activeIndex, setActiveIndex] = useState(0);
-    const [range, setRange] = useState({ start: 0, end: 0 });
+    const [range, setRange] = useState<IRange>({ start: 0, end: 0 });
 
     const updateRangeByIndex = (index: number) => {
         if (isBatch) {
@@ -53,17 +63,14 @@ const userInput = (maxLen: number) => {
             setIsBatch(!isBatch);
         } else if (input === " ") {
             // 删除已merged分支
-
+            eventTrigger.onSpace(range)
         } else if (key.tab) {
             // 删除未merge分支
-
+            eventTrigger.onTab(range)
         }
 
         // TODO 条件有待商榷
     }, [range, isBatch, benchmark, activeIndex])
-
-
-
 
     useInput(eventlistener)
     return { range }
