@@ -5,11 +5,10 @@ import userInput from './userInput.js'
 
 interface IList {
     branches: Array<any>;
+    onEventTrigger: (branches: Array<any>) => void;
 }
 
 const List: React.FC<IList> = (props) => {
-
-    const highlight = 0
 
     // *********************
     // Hooks Function
@@ -19,14 +18,11 @@ const List: React.FC<IList> = (props) => {
     const paintBgRow = useHighlightLine()
     const [columns, setColumns] = useState(0)
     const [row, setRow] = useState(13)
+    const { range } = userInput(props.branches.length)
 
-    userInput()
     // *********************
     // Life Cycle Function
     // *********************
-
-    // TODO 暂时不知道如何绘制背景线条
-    // paintBgRow(row, 100)
 
     useEffect(() => {
         //     const { width } = measureElement(screen.current!);
@@ -39,6 +35,17 @@ const List: React.FC<IList> = (props) => {
     // Service Function
     // *********************
 
+    const highlight = (index: number) => {
+        if (index >= range.start && index <= range.end) {
+            return {
+                color: 'blue'
+            }
+        } else {
+            return {
+                color: 'gray'
+            }
+        }
+    }
 
     // *********************
     // View
@@ -53,12 +60,12 @@ const List: React.FC<IList> = (props) => {
                     return (
                         <Box key={index}>
                             <Box width='30%'>
-                                <Text wrap="truncate-end" color={index === highlight ? 'blue' : 'gray'} >{item.name}</Text>
+                                <Text wrap="truncate-end" {...highlight(index)} >{item.name}</Text>
                             </Box>
                             <Box flexGrow={1}>
-                                <Text wrap="truncate-end" color={index === highlight ? 'blue' : 'gray'} >{item.value}</Text>
+                                <Text wrap="truncate-end" {...highlight(index)} >{item.value}</Text>
                             </Box>
-                            <Text color={index === highlight ? 'blue' : 'gray'} >No</Text>
+                            <Text {...highlight(index)} >{item.merged ? 'yes' : 'No'}</Text>
                         </Box>
                     )
                 })

@@ -6,6 +6,7 @@ import List from './List.js';
 
 interface ITemplate {
     branches: Array<any>;
+    onEventTrigger: (branches: Array<any>) => void;
 }
 
 const Template: React.FC<ITemplate> = (props) => {
@@ -14,12 +15,12 @@ const Template: React.FC<ITemplate> = (props) => {
         <Box flexDirection="column" >
             <Logo branchNumber={props.branches.length} />
             <Box>
-                <Text backgroundColor="#C1FDB7" color="#040404">  🤡 Space delete merge; Tab delete unmerged; Shift batch selection 🤡  </Text>
+                <Text backgroundColor="#C1FDB7" color="#040404">  🤡 Space delete merge; Tab delete unmerged; RightArrow batch selection 🤡  </Text>
                 <Spacer />
-                <Text>merge</Text>
+                <Text>merged</Text>
             </Box>
 
-            <List branches={props.branches} />
+            <List branches={props.branches} onEventTrigger={props.onEventTrigger} />
         </Box>
     )
 };

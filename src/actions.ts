@@ -7,7 +7,7 @@ class Actions {
 
     constructor() {
         this.git = new Git();
-        this.ui = new UI()
+        this.ui = new UI(this.git)
     }
 
     async deleteGitBranch(args: any[]) {

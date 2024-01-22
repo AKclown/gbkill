@@ -2,20 +2,28 @@ import React from 'react';
 import { render as inkRender } from 'ink';
 import Template from './Template.js'
 import Exit from './Exit.js';
+import Git from '../git.js';
 
 class UI {
 
     private clear?: () => void
+    private git: Git;
 
-    constructor() { }
+    constructor(git: Git) {
+        this.git = git
+    }
+
+    onEventTrigger(branches: Array<any>) {
+    }
 
     render(branches: Array<any>) {
-        const { clear } = inkRender(<Template branches={branches} />)
+        const { clear } = inkRender(<Template branches={branches} onEventTrigger={this.onEventTrigger} />)
         this.clear = clear
     }
 
     renderExit(code: number) {
         // TODO : 打印前清除屏幕打印
+        this.clear!()
         inkRender(<Exit code={code} />)
     }
 
