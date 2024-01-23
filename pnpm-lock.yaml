@@ -17,9 +17,6 @@ dependencies:
   ink:
     specifier: ^4.4.1
     version: registry.npmmirror.com/ink@4.4.1(@types/react@18.2.48)(react@18.2.0)
-  ink-ascii:
-    specifier: ^0.0.4
-    version: registry.npmmirror.com/ink-ascii@0.0.4(ink@4.4.1)(react@18.2.0)
   ink-big-text:
     specifier: ^2.0.0
     version: registry.npmmirror.com/ink-big-text@2.0.0(ink@4.4.1)(react@18.2.0)
@@ -32,9 +29,6 @@ dependencies:
   ink-spinner:
     specifier: ^5.0.0
     version: 5.0.0(ink@4.4.1)(react@18.2.0)
-  ink-table:
-    specifier: ^3.1.0
-    version: registry.npmmirror.com/ink-table@3.1.0(ink@4.4.1)(react@18.2.0)
   inquirer:
     specifier: ^8.2.6
     version: registry.npmmirror.com/inquirer@8.2.6
@@ -639,14 +633,6 @@ packages:
       tmp: registry.npmmirror.com/tmp@0.0.33
     dev: false
 
-  registry.npmmirror.com/figlet@1.7.0:
-    resolution: {integrity: sha512-gO8l3wvqo0V7wEFLXPbkX83b7MVjRrk1oRLfYlZXol8nEpb/ON9pcKLI4qpBv5YtOTfrINtqb7b40iYY2FTWFg==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/figlet/-/figlet-1.7.0.tgz}
-    name: figlet
-    version: 1.7.0
-    engines: {node: '>= 0.4.0'}
-    hasBin: true
-    dev: false
-
   registry.npmmirror.com/figures@3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/figures/-/figures-3.2.0.tgz}
     name: figures
@@ -741,20 +727,6 @@ packages:
     name: inherits
     version: 2.0.4
 
-  registry.npmmirror.com/ink-ascii@0.0.4(ink@4.4.1)(react@18.2.0):
-    resolution: {integrity: sha512-x6mZTHevoiAHgxrhxMpSc2p0lomq34uyGjwEFkpku7Rhxg30/MBnAi9gCHR17SMmaqRDzQRp1MS9s8Qvd4RHsA==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/ink-ascii/-/ink-ascii-0.0.4.tgz}
-    id: registry.npmmirror.com/ink-ascii/0.0.4
-    name: ink-ascii
-    version: 0.0.4
-    peerDependencies:
-      ink: '>=2.5.0'
-      react: '>=16.11.0'
-    dependencies:
-      figlet: registry.npmmirror.com/figlet@1.7.0
-      ink: registry.npmmirror.com/ink@4.4.1(@types/react@18.2.48)(react@18.2.0)
-      react: registry.npmmirror.com/react@18.2.0
-    dev: false
-
   registry.npmmirror.com/ink-big-text@2.0.0(ink@4.4.1)(react@18.2.0):
     resolution: {integrity: sha512-Juzqv+rIOLGuhMJiE50VtS6dg6olWfzFdL7wsU/EARSL5Eaa5JNXMogMBm9AkjgzO2Y3UwWCOh87jbhSn8aNdw==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/ink-big-text/-/ink-big-text-2.0.0.tgz}
     id: registry.npmmirror.com/ink-big-text/2.0.0
@@ -799,20 +771,6 @@ packages:
       ink: registry.npmmirror.com/ink@4.4.1(@types/react@18.2.48)(react@18.2.0)
       prop-types: registry.npmmirror.com/prop-types@15.8.1
       terminal-link: registry.npmmirror.com/terminal-link@3.0.0
-    dev: false
-
-  registry.npmmirror.com/ink-table@3.1.0(ink@4.4.1)(react@18.2.0):
-    resolution: {integrity: sha512-qxVb4DIaEaJryvF9uZGydnmP9Hkmas3DCKVpEcBYC0E4eJd3qNgNe+PZKuzgCERFe9LfAS1TNWxCr9+AU4v3YA==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/ink-table/-/ink-table-3.1.0.tgz}
-    id: registry.npmmirror.com/ink-table/3.1.0
-    name: ink-table
-    version: 3.1.0
-    peerDependencies:
-      ink: '>=3.0.0'
-      react: '>=16.8.0'
-    dependencies:
-      ink: registry.npmmirror.com/ink@4.4.1(@types/react@18.2.48)(react@18.2.0)
-      object-hash: registry.npmmirror.com/object-hash@2.2.0
-      react: registry.npmmirror.com/react@18.2.0
     dev: false
 
   registry.npmmirror.com/ink@4.4.1(@types/react@18.2.48)(react@18.2.0):
@@ -1081,13 +1039,6 @@ packages:
     name: object-assign
     version: 4.1.1
     engines: {node: '>=0.10.0'}
-    dev: false
-
-  registry.npmmirror.com/object-hash@2.2.0:
-    resolution: {integrity: sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/object-hash/-/object-hash-2.2.0.tgz}
-    name: object-hash
-    version: 2.2.0
-    engines: {node: '>= 6'}
     dev: false
 
   registry.npmmirror.com/once@1.4.0:

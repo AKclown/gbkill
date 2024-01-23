@@ -1,6 +1,6 @@
 import { simpleGit, SimpleGit } from 'simple-git'
 import { BRANCH_STATUS } from './constants.js';
-import taskQueue from './taskQueue.js';
+import task from './task.js';
 class Git {
     private DEFAULT_MERGED_BRANCH = 'main';
 
@@ -11,10 +11,14 @@ class Git {
     }
 
     async deleteLocalBranch(taskId: string, branchName: string) {
-        let branchResult = await this.simpleGit.deleteLocalBranch(branchName)
-        const callback = taskQueue.getQueueById(taskId);
+        task.deleteError(branchName);
+        const branchResult = await this.simpleGit.deleteLocalBranch(branchName)
+        if (!branchResult.success) {
+            task.addError(branchName)
+        }
+        const callback = task.getTaskById(taskId);
         callback!(branchResult)
-        taskQueue.deleteQueueById(taskId);
+        task.deleteTaskById(taskId);
     }
 
     async getMergedBranches(): Promise<Array<string>> {

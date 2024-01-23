@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { useStdout } from 'ink';
 import ansiEscapes from 'ansi-escapes';
 import colors from 'colors'

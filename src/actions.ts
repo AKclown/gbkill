@@ -10,7 +10,8 @@ class Actions {
         this.ui = new UI(this.git)
     }
 
-    async deleteGitBranch(args: any[]) {
+    async gbkill(args: any[]) {
+        console.log('args: ', args);
         const branches = await this.git.getLocalBranches()
         this.ui.render(branches);
     }

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { render, Box, Text, Newline, Spacer } from 'ink';
-import Table from 'ink-table'
+import React from 'react';
+import { Box, Text, Spacer } from 'ink';
 import Logo from './Logo.js';
 import List from './List.js';
 

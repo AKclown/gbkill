@@ -1,8 +1,4 @@
-
-
-
-
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useInput, Key } from 'ink';
 
 export interface IRange {

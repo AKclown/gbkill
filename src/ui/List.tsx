@@ -1,16 +1,19 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Box, Text } from 'ink';
 import userInput, { IRange } from './userInput.js'
 import { BRANCH_STATUS, BRANCH_STATUS_TEXT } from '../constants.js';
-import taskQueue from '../taskQueue.js';
+import task from '../task.js';
 import Spinner from 'ink-spinner';
 import { BranchSingleDeleteSuccess } from 'simple-git';
 
+export enum Actions {
+    SPACE = 'space',
+    TAB = 'tab',
+}
 interface IList {
     branches: Array<any>;
     onEventTrigger: (taskId: string, branchName: string) => void;
 }
-
 
 const List: React.FC<IList> = (props) => {
 
@@ -20,17 +23,18 @@ const List: React.FC<IList> = (props) => {
     // Default Function
     // *********************
 
-    // 空格触发事件
-    const onSpace = (range: IRange) => {
+    const deleteBranch = (range: IRange, action: Actions) => {
         // 并发执行
         // TODO: 写一个深度方法copy一下
         const cloneBranches = JSON.parse(JSON.stringify(branches))
         for (let i = range.start; i <= range.end; i++) {
             const branch = cloneBranches[i];
-            if (branch.merged && ![BRANCH_STATUS.DELETED, BRANCH_STATUS.DELETING].includes(branch.status)) {
+            const merged = action === Actions.TAB ? true : branch.merged;
+            const canDelete = ![BRANCH_STATUS.DELETED, BRANCH_STATUS.DELETING].includes(branch.status)
+            if (merged && canDelete) {
                 // 分支被合并了，以及状态不是'正在删除'|'删除成功'
                 cloneBranches[i].status = BRANCH_STATUS.DELETING;
-                taskQueue.request<BranchSingleDeleteSuccess>((taskId) => {
+                task.createTask<BranchSingleDeleteSuccess>((taskId) => {
                     props.onEventTrigger(taskId, branch.name)
                 }).then(res => {
                     const copyBranches = JSON.parse(JSON.stringify(branches))
@@ -41,16 +45,21 @@ const List: React.FC<IList> = (props) => {
                     }
                     setBranches(copyBranches)
                 })
-            } else if (!branch.merged) {
+            } else if (!merged && canDelete) {
                 cloneBranches[i].status = BRANCH_STATUS.NO_MERGED;
             }
         }
         setBranches(cloneBranches)
     }
 
+    // 空格触发事件
+    const onSpace = (range: IRange) => {
+        deleteBranch(range, Actions.SPACE);
+    }
+
     // tan触发事件
     const onTab = (range: IRange) => {
-
+        deleteBranch(range, Actions.TAB);
     }
 
     // *********************
@@ -121,7 +130,7 @@ const List: React.FC<IList> = (props) => {
             {
                 branches.map((item, index) => {
                     return (
-                        <Box key={index}>
+                        <Box key={item.name}>
                             <Box width='30%'>
                                 <Text wrap="truncate-end" {...highlight(index)} >
                                     {renderStatus(item)}{item.name}

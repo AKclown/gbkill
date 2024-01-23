@@ -36,12 +36,14 @@ class Main {
             .name(pkg.name)
             .version(pkg.version)
             .description(pkg.description)
-            .option('-r, --remote', '是否同时删除远程分支')
-            .action((args) => this.actions!.deleteGitBranch(args))
+            .option('-m, --merged', '指定合并分支')
+            .option('-f, --force', '是否强制删除分支')
+            .option('-s, --sync', '是否同时删除远程分支')
+            .action((args) => this.actions!.gbkill(args))
 
         // $ 监听未知命令
         this.program.on('command:*', (obj) => {
-            console.error(colors.red(`ak: 未知命令${obj[0]}`));
+            console.error(colors.red(`${pkg.name}: 未知命令${obj[0]}`));
             const availableCommands = this.program.commands.map(cmd => cmd.name());
             if (availableCommands.length > 0) {
                 console.log(colors.green(`可用命令: ${availableCommands.join(',')}`));
