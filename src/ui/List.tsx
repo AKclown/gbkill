@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Text } from 'ink';
 import userInput, { IRange } from './userInput.js'
 import { BRANCH_STATUS, BRANCH_STATUS_TEXT } from '../constants.js';
 import task from '../task.js';
 import Spinner from 'ink-spinner';
 import { BranchSingleDeleteSuccess } from 'simple-git';
+import ScrollArea from './ScrollArea.js';
+import useStdoutDimensions from '../hooks/useStdoutDimensions.js';
 
 export enum Actions {
     SPACE = 'space',
@@ -65,12 +67,19 @@ const List: React.FC<IList> = (props) => {
     // *********************
     // Hooks Function
     // *********************
-
-    const { range } = userInput(branches.length, { onSpace, onTab })
+    const [columns, rows] = useStdoutDimensions();
+    const { range, activeIndex } = userInput(branches.length, { onSpace, onTab })
+    const [scrollHeight, setScrollHeight] = useState(0)
 
     // *********************
     // Life Cycle Function
     // *********************
+
+    useEffect(() => {
+        // !!! 减去 数值 9，这个9是列表前面的行数. 解决选择时闪动问题，内容不能超过整体屏幕高度
+        const height = props.branches.length > rows - 9 ? rows - 9 : props.branches.length
+        setScrollHeight(height)
+    }, [rows, props.branches.length])
 
     // *********************
     // Service Function
@@ -101,6 +110,11 @@ const List: React.FC<IList> = (props) => {
         }
     }
 
+    const lockScrollDown = useMemo(() => {
+        // $ 当滚动大于需要展示的内容列表，锁定scroll down不需要在往下滚动
+        return scrollHeight >= props.branches.length - activeIndex
+    }, [props.branches.length, activeIndex, scrollHeight])
+
     // *********************
     // View
     // *********************
@@ -127,23 +141,25 @@ const List: React.FC<IList> = (props) => {
 
     return (
         <Box flexDirection="column" >
-            {
-                branches.map((item, index) => {
-                    return (
-                        <Box key={item.name}>
-                            <Box width='30%'>
-                                <Text wrap="truncate-end" {...highlight(index)} >
-                                    {renderStatus(item)}{item.name}
-                                </Text>
+            <ScrollArea height={scrollHeight} lockScrollDown={lockScrollDown}>
+                {
+                    branches.map((item, index) => {
+                        return (
+                            <Box key={item.name}>
+                                <Box width='30%'>
+                                    <Text wrap="truncate-end" {...highlight(index)} >
+                                        {renderStatus(item)}{item.name}
+                                    </Text>
+                                </Box>
+                                <Box flexGrow={1}>
+                                    <Text wrap="truncate-end" {...highlight(index)} >{item.value}</Text>
+                                </Box>
+                                <Text {...highlight(index)} >{item.merged ? 'yes' : 'No'}</Text>
                             </Box>
-                            <Box flexGrow={1}>
-                                <Text wrap="truncate-end" {...highlight(index)} >{item.value}</Text>
-                            </Box>
-                            <Text {...highlight(index)} >{item.merged ? 'yes' : 'No'}</Text>
-                        </Box>
-                    )
-                })
-            }
+                        )
+                    })
+                }
+            </ScrollArea>
         </Box>
     )
 };

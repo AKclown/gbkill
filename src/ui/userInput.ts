@@ -69,7 +69,7 @@ const userInput = (maxLen: number, eventTrigger: IEventTrigger) => {
     }, [range, isBatch, benchmark, activeIndex])
 
     useInput(eventlistener)
-    return { range }
+    return { range, activeIndex }
 }
 
 export default userInput

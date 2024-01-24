@@ -24,10 +24,11 @@ const Logo: React.FC<ILogo> = (props) => {
                     <Text backgroundColor="#EA3323"> {0} </Text>
                 </Box>
                 <Box>
-
-                    <Text color="green">Branches:</Text>
-                    <Text color="#D98A5C"> {props.branchNumber}</Text>
-                    <Newline />
+                    <Text>
+                        <Text color="green">Branches:</Text>
+                        <Text color="#D98A5C"> {props.branchNumber}</Text>
+                        <Newline />
+                    </Text>
                 </Box>
             </Box>
         </Box>
