@@ -1,18 +1,49 @@
-import { simpleGit, SimpleGit } from 'simple-git'
+import { BranchSingleDeleteFailure, BranchSingleDeleteResult, BranchSingleDeleteSuccess, simpleGit, SimpleGit } from 'simple-git'
 import { BRANCH_STATUS } from './constants.js';
 import task from './task.js';
-class Git {
-    private DEFAULT_MERGED_BRANCH = 'main';
 
+export interface GitOption {
+    force: boolean;
+    sync: boolean;
+}
+
+export interface IBranchDeleteResult extends Omit<BranchSingleDeleteSuccess, 'hash' | 'success'> {
+    hash: null | string;
+    success: boolean;
+    force: boolean;
+}
+
+class Git {
     private simpleGit: SimpleGit;
+    public gitOptions: GitOption;
+    private DEFAULT_MERGED_BRANCH: string = 'main';
 
     constructor() {
         this.simpleGit = simpleGit();
+        this.gitOptions = {
+            force: false,
+            sync: false,
+        }
     }
 
     async deleteLocalBranch(taskId: string, branchName: string) {
+        let branchResult: IBranchDeleteResult = {
+            branch: branchName,
+            hash: null,
+            success: false,
+            force: false
+        }
+        try {
+            // const result = await this.simpleGit.deleteLocalBranch(branchName, this.gitOptions.force)
+            // branchResult = { ...branchResult, ...result };
+        } catch (error: any) {
+            if (~error.message.indexOf('git branch -D')) {
+                // 需要强制才可以删除
+                branchResult = { ...branchResult, force: true }
+            }
+        }
         task.deleteError(branchName);
-        const branchResult = await this.simpleGit.deleteLocalBranch(branchName)
+
         if (!branchResult.success) {
             task.addError(branchName)
         }

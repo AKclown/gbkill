@@ -4,9 +4,9 @@ import userInput, { IRange } from './userInput.js'
 import { BRANCH_STATUS, BRANCH_STATUS_TEXT } from '../constants.js';
 import task from '../task.js';
 import Spinner from 'ink-spinner';
-import { BranchSingleDeleteSuccess } from 'simple-git';
 import ScrollArea from './ScrollArea.js';
 import useStdoutDimensions from '../hooks/useStdoutDimensions.js';
+import { IBranchDeleteResult } from '../git.js';
 
 export enum Actions {
     SPACE = 'space',
@@ -36,11 +36,13 @@ const List: React.FC<IList> = (props) => {
             if (merged && canDelete) {
                 // 分支被合并了，以及状态不是'正在删除'|'删除成功'
                 cloneBranches[i].status = BRANCH_STATUS.DELETING;
-                task.createTask<BranchSingleDeleteSuccess>((taskId) => {
+                task.createTask<IBranchDeleteResult>((taskId) => {
                     props.onEventTrigger(taskId, branch.name)
                 }).then(res => {
                     const copyBranches = JSON.parse(JSON.stringify(branches))
-                    if (res.success) {
+                    if (res.force) {
+                        copyBranches[i].status = BRANCH_STATUS.NO_FORCE;
+                    }else if (res.success) {
                         copyBranches[i].status = BRANCH_STATUS.DELETED;
                     } else {
                         copyBranches[i].status = BRANCH_STATUS.FAILED;
@@ -99,10 +101,12 @@ const List: React.FC<IList> = (props) => {
 
     const statusColor = (status: BRANCH_STATUS) => {
         switch (status) {
-            case BRANCH_STATUS.NO_MERGED:
-                return '#FD999A'
             case BRANCH_STATUS.DELETED:
                 return 'green'
+            case BRANCH_STATUS.NO_MERGED:
+                return '#FD999A'
+            case BRANCH_STATUS.NO_FORCE:
+                return '#E5E510'
             case BRANCH_STATUS.FAILED:
                 return 'red'
             default:
