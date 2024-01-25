@@ -35,7 +35,7 @@ class Task {
     }
 
     getErrors() {
-        return this.errors
+        return Array.from(this.errors)
     }
 
 }

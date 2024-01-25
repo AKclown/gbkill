@@ -14,6 +14,9 @@ dependencies:
   commander:
     specifier: ^11.1.0
     version: 11.1.0
+  downgrade-root:
+    specifier: ^2.0.0
+    version: 2.0.0
   ink:
     specifier: ^4.4.1
     version: 4.4.1(@types/react@18.2.48)(react@18.2.0)
@@ -41,6 +44,9 @@ dependencies:
   simple-git:
     specifier: ^3.22.0
     version: 3.22.0
+  sudo-block:
+    specifier: ^5.0.0
+    version: 5.0.0
 
 devDependencies:
   '@types/inquirer':
@@ -435,6 +441,11 @@ packages:
       ms: 2.1.2
     dev: false
 
+  /default-uid@2.0.0:
+    resolution: {integrity: sha512-aMYTP7vinmUN/dR5n9JUNCB85jy+N+41jx53lMzR6DyGE6NeVPIxCPGbWjDYVNjz6Ei8C9hyeYAfuxVOe3UdsQ==}
+    engines: {node: '>=12'}
+    dev: false
+
   /defaults@1.0.4:
     resolution: {integrity: sha512-eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==}
     dependencies:
@@ -452,6 +463,14 @@ packages:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
     engines: {node: '>=0.3.1'}
     dev: true
+
+  /downgrade-root@2.0.0:
+    resolution: {integrity: sha512-tke0knZzG76FThh9diBex027u3qsoXv6PKZDva1fsEuqlzlstkcyoJgdHE/wQc2nBU1rnUcmhMUnQA3gucXc0Q==}
+    engines: {node: '>=12'}
+    dependencies:
+      default-uid: 2.0.0
+      is-root: 3.0.0
+    dev: false
 
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -713,6 +732,12 @@ packages:
       is-data-descriptor: 1.0.1
     dev: false
 
+  /is-docker@3.0.0:
+    resolution: {integrity: sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    hasBin: true
+    dev: false
+
   /is-fullwidth-code-point@3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
     engines: {node: '>=8'}
@@ -739,6 +764,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       kind-of: 3.2.2
+    dev: false
+
+  /is-root@3.0.0:
+    resolution: {integrity: sha512-C13bL54yQdgniduW8KFe81ttgQINcwMgil/zyNuDzr/xjIyDMkcvcc9dON62RH9VBAHOI7le+lTo/U3PY3irwg==}
+    engines: {node: '>=12'}
     dev: false
 
   /is-unicode-supported@0.1.0:
@@ -1071,6 +1101,15 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       ansi-regex: 6.0.1
+    dev: false
+
+  /sudo-block@5.0.0:
+    resolution: {integrity: sha512-G0WeSL7midyz10FMKtgjXOBZpv9ZM9y++zGideqHIZ+qrzB8wMrCzMxTJgREAY35zPfkqVZBxaYjzteO9H6iQw==}
+    engines: {node: '>=18'}
+    dependencies:
+      chalk: 5.3.0
+      is-docker: 3.0.0
+      is-root: 3.0.0
     dev: false
 
   /supports-color@7.2.0:

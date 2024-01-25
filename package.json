@@ -37,6 +37,7 @@
     "ansi-escapes": "^6.2.0",
     "colors": "^1.4.0",
     "commander": "^11.1.0",
+    "downgrade-root": "^2.0.0",
     "ink": "^4.4.1",
     "ink-big-text": "^2.0.0",
     "ink-gradient": "^3.0.0",
@@ -45,7 +46,8 @@
     "inquirer": "^8.2.6",
     "react": "^18.2.0",
     "semver": "^7.5.4",
-    "simple-git": "^3.22.0"
+    "simple-git": "^3.22.0",
+    "sudo-block": "^5.0.0"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.7",

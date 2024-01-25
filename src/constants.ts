@@ -21,8 +21,8 @@ export const BRANCH_STATUS_TEXT = {
 // 默认合并主分支
 export const DEFAULT_MERGED_BRANCH = 'main'
 
-// TODO: 最低版本限制 （后续测试到最低12.0.0版本）
-export const LOWEST_NODE_VERSION = '18.20.0';
+// !!!!: 最低版本限制 （后续测试到最低12.0.0版本）
+export const LOWEST_NODE_VERSION = '16.20.0';
 
 // 脚手架存储的文件
 export const DEFAULT_CLI_HOME = '.gbkill';

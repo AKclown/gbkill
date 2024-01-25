@@ -3,10 +3,12 @@ import { Command } from 'commander';
 import colors from 'colors';
 import semver from 'semver';
 import fs from 'fs';
+import path from 'path';
+import downgradeRoot from 'downgrade-root';
+import sudoBlock from 'sudo-block';
 import pkg from '../package.json' assert { type: "json" };
 import Actions from './actions.js';
 import { LOWEST_NODE_VERSION } from './constants.js';
-import path from 'path';
 
 class Main {
 
@@ -39,7 +41,7 @@ class Main {
         this.checkNodeVersion();
         this.checkRoot();
         this.checkUserHome();
-        await this.checkGlobalUpdate();
+        // await this.checkGlobalUpdate();
     }
 
     checkNodeVersion() {
@@ -55,9 +57,15 @@ class Main {
     }
 
     checkRoot() {
-        const rootCheck = require('root-check');
         // $ 尝试降级具有root权限的进程的权限，如果失败，则阻止访问权限
-        rootCheck();
+        this.rootCheck();
+    }
+    rootCheck() {
+        try {
+            downgradeRoot();
+        } catch { }
+
+        sudoBlock();
     }
 
     checkUserHome() {
@@ -76,7 +84,8 @@ class Main {
             .concat(Array.prototype.slice.call(arguments, 0)));
     }
 
-   async checkGlobalUpdate() {
+    // TODO 暂未校验本地版本与线上版本
+    async checkGlobalUpdate() {
         // 1. 获取当前版本号和模块名
         const currentVersion = pkg.version;
         const npmName = pkg.name;
@@ -85,7 +94,7 @@ class Main {
         // // 3. 提取所有版本号，对比那些版本号是大于当前版本
         // // 4. 获取最新的版本号，提示用户更新到该版本
         // if (lastVersion && semver.gt(lastVersion, currentVersion)) {
-          
+
         // }
     }
 

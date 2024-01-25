@@ -1,6 +1,7 @@
 import { BranchSingleDeleteSuccess, simpleGit, SimpleGit } from 'simple-git'
 import { BRANCH_STATUS, DEFAULT_MERGED_BRANCH } from './constants.js';
 import task from './task.js';
+import eventBus, { EVENT_TYPE } from './eventBus.js';
 
 export interface GitOption {
     force: boolean;
@@ -45,6 +46,7 @@ class Git {
 
         if (!branchResult.success) {
             task.addError(branchName)
+            eventBus.emit(EVENT_TYPE.ERROR, task.getErrors())
         }
         const callback = task.getTaskById(taskId);
         callback!(branchResult)
