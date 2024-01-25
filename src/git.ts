@@ -1,5 +1,5 @@
-import { BranchSingleDeleteFailure, BranchSingleDeleteResult, BranchSingleDeleteSuccess, simpleGit, SimpleGit } from 'simple-git'
-import { BRANCH_STATUS } from './constants.js';
+import { BranchSingleDeleteSuccess, simpleGit, SimpleGit } from 'simple-git'
+import { BRANCH_STATUS, DEFAULT_MERGED_BRANCH } from './constants.js';
 import task from './task.js';
 
 export interface GitOption {
@@ -16,7 +16,6 @@ export interface IBranchDeleteResult extends Omit<BranchSingleDeleteSuccess, 'ha
 class Git {
     private simpleGit: SimpleGit;
     public gitOptions: GitOption;
-    private DEFAULT_MERGED_BRANCH: string = 'main';
 
     constructor() {
         this.simpleGit = simpleGit();
@@ -53,7 +52,7 @@ class Git {
     }
 
     async getMergedBranches(): Promise<Array<string>> {
-        const mergedBranch = this.DEFAULT_MERGED_BRANCH;
+        const mergedBranch = DEFAULT_MERGED_BRANCH;
         const branchResult = await this.simpleGit.branch(['--merged', mergedBranch]);
         return branchResult.all;
     }

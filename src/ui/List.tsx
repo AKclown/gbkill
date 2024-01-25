@@ -102,13 +102,13 @@ const List: React.FC<IList> = (props) => {
     const statusColor = (status: BRANCH_STATUS) => {
         switch (status) {
             case BRANCH_STATUS.DELETED:
-                return 'green'
+                return '#00D26A'
             case BRANCH_STATUS.NO_MERGED:
-                return '#FD999A'
+                return '#8661B6'
             case BRANCH_STATUS.NO_FORCE:
                 return '#E5E510'
             case BRANCH_STATUS.FAILED:
-                return 'red'
+                return '#F8312F'
             default:
                 return ''
         }
