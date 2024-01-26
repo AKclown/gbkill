@@ -8,7 +8,7 @@ import downgradeRoot from 'downgrade-root';
 import sudoBlock from 'sudo-block';
 import pkg from '../package.json' assert { type: "json" };
 import Actions from './actions.js';
-import { LOWEST_NODE_VERSION } from './constants.js';
+import { userHome, LOWEST_NODE_VERSION } from './constants.js';
 
 class Main {
 
@@ -70,20 +70,13 @@ class Main {
     }
 
     checkUserHome() {
-        const userHome = this.userHome()
-        if (!(userHome && fs.existsSync(userHome))) {
+        const home = userHome()
+        if (!(home && fs.existsSync(home))) {
             throw new Error(colors.red(`The home directory for the current logged-in user does not exist`));
         }
     }
 
-    userHome() {
-        var home = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
-        if (!home) {
-            throw new Error('Could not find a valid user home path.');
-        }
-        return path.resolve.apply(path.resolve, [home]
-            .concat(Array.prototype.slice.call(arguments, 0)));
-    }
+
 
     // TODO 暂未校验本地版本与线上版本
     async checkGlobalUpdate() {
@@ -99,14 +92,16 @@ class Main {
         // }
     }
 
+
+
     registerCommand() {
         this.program
             .name(pkg.name)
             .version(pkg.version)
             .description(pkg.description)
-            .option('-m, --merged', '指定合并分支')
-            .option('-f, --force', '是否强制删除分支')
-            .option('-s, --sync', '是否同时删除远程分支')
+            .option('--merged <name>', '指定合并分支')
+            .option('--force', '是否强制删除分支')
+            .option(' --sync', '是否同时删除远程分支')
             .action((args) => this.actions!.gbkill(args))
 
         // $ 监听未知命令

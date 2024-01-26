@@ -42,7 +42,7 @@ const List: React.FC<IList> = (props) => {
                     const copyBranches = JSON.parse(JSON.stringify(branches))
                     if (res.force) {
                         copyBranches[i].status = BRANCH_STATUS.NO_FORCE;
-                    }else if (res.success) {
+                    } else if (res.success) {
                         copyBranches[i].status = BRANCH_STATUS.DELETED;
                     } else {
                         copyBranches[i].status = BRANCH_STATUS.FAILED;
@@ -109,6 +109,8 @@ const List: React.FC<IList> = (props) => {
                 return '#E5E510'
             case BRANCH_STATUS.FAILED:
                 return '#F8312F'
+            case BRANCH_STATUS.NO_SYNC:
+                return '#744C3D'
             default:
                 return ''
         }
@@ -145,20 +147,27 @@ const List: React.FC<IList> = (props) => {
 
     return (
         <Box flexDirection="column" >
-            <ScrollArea height={scrollHeight} lockScrollDown={lockScrollDown}>
+            <ScrollArea
+                height={scrollHeight}
+                lockScrollDown={lockScrollDown}
+                activeIndex={activeIndex}
+                maxLen={branches.length}
+            >
                 {
                     branches.map((item, index) => {
                         return (
                             <Box key={item.name}>
-                                <Box width='30%'>
+                                <Box width='30%' paddingRight={2}>
                                     <Text wrap="truncate-end" {...highlight(index)} >
                                         {renderStatus(item)}{item.name}
                                     </Text>
                                 </Box>
-                                <Box flexGrow={1}>
+                                <Box width='76%' paddingRight={2}>
                                     <Text wrap="truncate-end" {...highlight(index)} >{item.value}</Text>
                                 </Box>
-                                <Text {...highlight(index)} >{item.merged ? 'yes' : 'No'}</Text>
+                                <Box width='4%'>
+                                    <Text wrap="truncate-end" {...highlight(index)} >{item.merged ? 'yes' : 'No'}</Text>
+                                </Box>
                             </Box>
                         )
                     })
