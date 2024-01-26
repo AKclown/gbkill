@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Box, Text } from 'ink';
-import userInput, { IRange } from './userInput.js'
+import userInput, { IRange } from './hooks/userInput.js'
 import { BRANCH_STATUS, BRANCH_STATUS_TEXT } from '../constants.js';
 import task from '../task.js';
 import Spinner from 'ink-spinner';
 import ScrollArea from './ScrollArea.js';
-import useStdoutDimensions from '../hooks/useStdoutDimensions.js';
+import useStdoutDimensions from './hooks/useStdoutDimensions.js';
 import { IBranchDeleteResult } from '../git.js';
 
 export enum Actions {

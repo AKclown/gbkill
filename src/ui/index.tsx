@@ -27,6 +27,5 @@ class UI {
         this.clear!()
         inkRender(<Exit code={code} />)
     }
-
 }
 export default UI

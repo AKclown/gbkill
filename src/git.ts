@@ -26,6 +26,10 @@ class Git {
         }
     }
 
+    async deleteRemoteBranch(branchName: string) {
+
+    }
+
     async deleteLocalBranch(taskId: string, branchName: string) {
         let branchResult: IBranchDeleteResult = {
             branch: branchName,

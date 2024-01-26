@@ -25,8 +25,9 @@ class Main {
         chain = chain.then(() => { this.actions = new Actions() })
         chain = chain.then(() => this.registerCommand())
         chain = chain.then(() => this.exitListener())
+        chain = chain.then(() => this.catchGlobalError())
         chain.catch(error => {
-            console.log(`🤡 ${error.message} 🤡`);
+            console.log(colors.red(`🤡 ${error.message} 🤡`));
         })
     }
 
@@ -117,6 +118,14 @@ class Main {
             }
         });
         this.program.parse(process.argv);
+    }
+
+    catchGlobalError() {
+        process.on('uncaughtException', (error) => {
+            this.actions!.exit(1)
+            console.log(colors.red(`${error.message}`));
+            process.exit(1)
+        })
     }
 
     exitListener() {

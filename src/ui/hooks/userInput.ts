@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useInput, Key } from 'ink';
+import eventBus, { EVENT_TYPE } from '../../eventBus.js';
 
 export interface IRange {
     start: number;
@@ -18,6 +19,11 @@ const userInput = (maxLen: number, eventTrigger: IEventTrigger) => {
     // 当前活动下标
     const [activeIndex, setActiveIndex] = useState(0);
     const [range, setRange] = useState<IRange>({ start: 0, end: 0 });
+
+    useEffect(() => {
+        const distance = range.end - range.start;
+        eventBus.emit(EVENT_TYPE.AMOUNT, distance + 1)
+    }, [range, eventBus])
 
     const updateRangeByIndex = (index: number) => {
         if (isBatch) {

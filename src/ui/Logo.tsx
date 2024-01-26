@@ -12,6 +12,7 @@ interface ILogo {
 const Logo: React.FC<ILogo> = (props) => {
 
     const [error, setError] = useState([])
+    const [amount, setAmount] = useState(1)
 
     // *********************
     // Life Cycle Function
@@ -20,6 +21,10 @@ const Logo: React.FC<ILogo> = (props) => {
     useEffect(() => {
         eventBus.subscribe(EVENT_TYPE.ERROR, (payload: any) => {
             setError(payload)
+        })
+
+        eventBus.subscribe(EVENT_TYPE.AMOUNT, (payload: any) => {
+            setAmount(payload)
         })
     }, [])
 
@@ -41,13 +46,17 @@ const Logo: React.FC<ILogo> = (props) => {
 
             <Box marginLeft={2} flexDirection="column" >
                 <Box>
-                    <Text color="green">Error: </Text>
+                    <Text color="#EA3323">Error: </Text>
                     <Text backgroundColor="#EA3323"> {error.length} </Text>
+                </Box>
+                <Box>
+                    <Text color="blue">Batch: </Text>
+                    <Text backgroundColor="blue"> {amount} </Text>
                 </Box>
                 <Box>
                     <Text>
                         <Text color="green">Branches:</Text>
-                        <Text color="#D98A5C"> {props.branchNumber}</Text>
+                        <Text color="#D98A5C"> {props.branchNumber} </Text>
                         <Newline />
                     </Text>
                 </Box>
