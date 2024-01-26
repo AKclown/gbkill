@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, Newline } from 'ink';
 import Gradient from 'ink-gradient';
-import BigText from 'ink-big-text';
+import figlet from 'figlet';
 import pkg from '../../package.json' assert { type: "json" };
 import eventBus, { EVENT_TYPE } from '../eventBus.js';
 
 interface ILogo {
     branchNumber: number;
 }
+
+const name = figlet.textSync(pkg.name, {
+    font: "Small Isometric1",
+})
 
 const Logo: React.FC<ILogo> = (props) => {
 
@@ -40,7 +44,7 @@ const Logo: React.FC<ILogo> = (props) => {
         <Box alignItems="flex-end">
             <Box>
                 <Gradient name='rainbow'>
-                    <BigText text={pkg.name} font="simpleBlock" space={false} />
+                    <Text>{name} </Text>
                 </Gradient>
             </Box>
 
