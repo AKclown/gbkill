@@ -16,7 +16,7 @@ const Template: React.FC<ITemplate> = (props) => {
             <Box>
                 <Text backgroundColor="#C1FDB7" color="#040404">  🤡 Space delete merge; Tab delete unmerged; RightArrow batch selection 🤡  </Text>
                 <Spacer />
-                <Text>merged</Text>
+                <Text>merge</Text>
             </Box>
 
             <List branches={props.branches} onEventTrigger={props.onEventTrigger} />

@@ -9,10 +9,11 @@ export interface GitOption extends Pick<IWriteFile, 'lock' | 'merged'> {
     sync: boolean;
 }
 
-export interface IBranchDeleteResult extends Omit<BranchSingleDeleteSuccess, 'hash' | 'success'> {
-    hash: null | string;
-    success: boolean;
-    force: boolean;
+export interface IBranchDeleteResult {
+    branch: string;
+    status: BRANCH_STATUS;
+    // 错误信息
+    message?: string;
 }
 
 class Git {
@@ -30,28 +31,44 @@ class Git {
     }
 
     async deleteRemoteBranch(branchName: string) {
-
+        // git push origin --delete branch
+        await this.simpleGit.push('origin', branchName, ['--delete'])
     }
 
     async deleteLocalBranch(taskId: string, branchName: string) {
         let branchResult: IBranchDeleteResult = {
             branch: branchName,
-            hash: null,
-            success: false,
-            force: false
+            status: BRANCH_STATUS.DELETING,
+            message: undefined,
         }
         try {
-            // const result = await this.simpleGit.deleteLocalBranch(branchName, this.gitOptions.force)
-            // branchResult = { ...branchResult, ...result };
-        } catch (error: any) {
-            if (~error.message.indexOf('git branch -D')) {
-                // 需要强制才可以删除
-                branchResult = { ...branchResult, force: true }
+            if (this.gitOptions.sync) {
+                // 同步删除远程分支
+                await this.deleteRemoteBranch(branchName)
             }
+            const result = await this.simpleGit.deleteLocalBranch(branchName, this.gitOptions.force)
+            if (result.success) {
+                branchResult.status = BRANCH_STATUS.DELETED
+            } else {
+                branchResult.status = BRANCH_STATUS.FAILED
+            }
+        } catch (error: any) {
+            const message = error.message.replace(/[\n|\r|\r\n]/g, ',')
+            if (~message.indexOf('git branch -D')) {
+                // 需要强制才可以删除
+                branchResult.status = BRANCH_STATUS.NO_FORCE
+            } else if (~message.indexOf('failed to push some refs')) {
+                // 删除远程分支出错
+                branchResult.status = BRANCH_STATUS.NO_SYNC
+            } else {
+                // 未知失败
+                branchResult.status = BRANCH_STATUS.FAILED
+            }
+            branchResult.message = message
         }
         task.deleteError(branchName);
 
-        if (!branchResult.success) {
+        if (branchResult.status !== BRANCH_STATUS.DELETED) {
             task.addError(branchName)
             eventBus.emit(EVENT_TYPE.ERROR, task.getErrors())
         }
@@ -62,8 +79,18 @@ class Git {
 
     async getMergedBranches(): Promise<Array<string>> {
         const mergedBranch = this.gitOptions.merged || DEFAULT_MERGED_BRANCH;
-        const branchResult = await this.simpleGit.branch(['--merged', mergedBranch]);
-        return branchResult.all;
+        try {
+            const branchResult = await this.simpleGit.branch(['--merged', mergedBranch]);
+            return branchResult.all;
+        } catch (error: any) {
+            if (~error.message.indexOf('malformed object name')) {
+                throw new Error(`--merged指定的${mergedBranch}分支不存在`)
+            } else {
+                throw new Error(error.message)
+            }
+
+        }
+
     }
 
     async getLocalBranches() {

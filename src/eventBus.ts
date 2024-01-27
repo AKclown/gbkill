@@ -40,7 +40,6 @@ class EventBus {
     emit(eventName: EVENT_TYPE, payload: any) {
         if (!this.eventPool.has(eventName)) {
             throw new Error(`从未订阅过此事件${eventName}`)
-            return
         }
         const callbacks = this.eventPool.get(eventName) || {};
         for (const id in callbacks) {

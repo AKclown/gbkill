@@ -28,12 +28,13 @@ const List: React.FC<IList> = (props) => {
     // Default Function
     // *********************
 
-    const chianQueue = (index: number, status: BRANCH_STATUS) => {
+    const chianQueue = (index: number, status: BRANCH_STATUS, message?: string) => {
         // 改变分支状态，进入到微任务状态
         chian = chian.then(async () => {
             setBranches(preBranches => {
                 const branches = JSON.parse(JSON.stringify(preBranches))
                 branches[index].status = status;
+                branches[index].message = message;
                 return branches
             })
             // $ 添加过渡效果
@@ -57,14 +58,8 @@ const List: React.FC<IList> = (props) => {
                 chianQueue(i, BRANCH_STATUS.DELETING)
                 task.createTask<IBranchDeleteResult>((taskId) => {
                     props.onEventTrigger(taskId, branch.name)
-                }).then(res => {
-                    if (res.force) {
-                        chianQueue(i, BRANCH_STATUS.NO_FORCE)
-                    } else if (res.success) {
-                        chianQueue(i, BRANCH_STATUS.DELETED)
-                    } else {
-                        chianQueue(i, BRANCH_STATUS.FAILED)
-                    }
+                }).then((res: IBranchDeleteResult) => {
+                    chianQueue(i, res.status, res.message)
                 })
             } else if (!merged && canDelete) {
                 chianQueue(i, BRANCH_STATUS.NO_MERGED)
@@ -115,15 +110,6 @@ const List: React.FC<IList> = (props) => {
         }
     }
 
-    const lockScrollDown = useMemo(() => {
-        // $ 当滚动大于需要展示的内容列表，锁定scroll down不需要在往下滚动
-        return scrollHeight >= props.branches.length - activeIndex
-    }, [props.branches.length, activeIndex, scrollHeight])
-
-    // *********************
-    // View
-    // *********************
-
     const statusColor = (status: BRANCH_STATUS) => {
         switch (status) {
             case BRANCH_STATUS.DELETED:
@@ -141,6 +127,24 @@ const List: React.FC<IList> = (props) => {
         }
     }
 
+    const contentHighlight = (item: any, index: number) => {
+        if (item.message) {
+            // $存在错误信息
+            const color = statusColor(item.status) || '#F8312F'
+            return { color }
+        } else {
+            return highlight(index);
+        }
+    }
+
+    const lockScrollDown = useMemo(() => {
+        // $ 当滚动大于需要展示的内容列表，锁定scroll down不需要在往下滚动
+        return scrollHeight >= props.branches.length - activeIndex
+    }, [props.branches.length, activeIndex, scrollHeight])
+
+    // *********************
+    // View
+    // *********************
 
     const renderStatus = (item: any) => {
         if (item.status === BRANCH_STATUS.NONE) {
@@ -180,9 +184,9 @@ const List: React.FC<IList> = (props) => {
                                     </Text>
                                 </Box>
                                 <Box width='76%' paddingRight={2}>
-                                    <Text wrap="truncate-end" {...highlight(index)} >{item.value}</Text>
+                                    <Text wrap="truncate-end" {...contentHighlight(item, index)} >{item.message ?? item.value}</Text>
                                 </Box>
-                                <Box width='4%'>
+                                <Box width='4%' justifyContent="flex-end">
                                     <Text wrap="truncate-end" {...highlight(index)} >{item.merged ? 'yes' : 'No'}</Text>
                                 </Box>
                             </Box>
