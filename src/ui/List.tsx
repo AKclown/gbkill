@@ -21,39 +21,55 @@ const List: React.FC<IList> = (props) => {
 
     const [branches, setBranches] = useState(props.branches);
 
+    // 微任务队列
+    let chian: Promise<null> = Promise.resolve(null)
+
     // *********************
     // Default Function
     // *********************
 
+    const chianQueue = (index: number, status: BRANCH_STATUS) => {
+        // 改变分支状态，进入到微任务状态
+        chian = chian.then(async () => {
+            setBranches(preBranches => {
+                const branches = JSON.parse(JSON.stringify(preBranches))
+                branches[index].status = status;
+                return branches
+            })
+            // $ 添加过渡效果
+            await delay(50)
+            return Promise.resolve(null)
+        })
+    }
+
+    const delay = (ms: number) => {
+        return new Promise(resolve => {
+            setTimeout(resolve, ms);
+        });
+    }
+
     const deleteBranch = (range: IRange, action: Actions) => {
-        // 并发执行
-        // TODO: 写一个深度方法copy一下
-        const cloneBranches = JSON.parse(JSON.stringify(branches))
         for (let i = range.start; i <= range.end; i++) {
-            const branch = cloneBranches[i];
+            const branch = branches[i];
             const merged = action === Actions.TAB ? true : branch.merged;
             const canDelete = ![BRANCH_STATUS.DELETED, BRANCH_STATUS.DELETING].includes(branch.status)
             if (merged && canDelete) {
-                // 分支被合并了，以及状态不是'正在删除'|'删除成功'
-                cloneBranches[i].status = BRANCH_STATUS.DELETING;
+                chianQueue(i, BRANCH_STATUS.DELETING)
                 task.createTask<IBranchDeleteResult>((taskId) => {
                     props.onEventTrigger(taskId, branch.name)
                 }).then(res => {
-                    const copyBranches = JSON.parse(JSON.stringify(branches))
                     if (res.force) {
-                        copyBranches[i].status = BRANCH_STATUS.NO_FORCE;
+                        chianQueue(i, BRANCH_STATUS.NO_FORCE)
                     } else if (res.success) {
-                        copyBranches[i].status = BRANCH_STATUS.DELETED;
+                        chianQueue(i, BRANCH_STATUS.DELETED)
                     } else {
-                        copyBranches[i].status = BRANCH_STATUS.FAILED;
+                        chianQueue(i, BRANCH_STATUS.FAILED)
                     }
-                    setBranches(copyBranches)
                 })
             } else if (!merged && canDelete) {
-                cloneBranches[i].status = BRANCH_STATUS.NO_MERGED;
+                chianQueue(i, BRANCH_STATUS.NO_MERGED)
             }
         }
-        setBranches(cloneBranches)
     }
 
     // 空格触发事件
@@ -99,6 +115,15 @@ const List: React.FC<IList> = (props) => {
         }
     }
 
+    const lockScrollDown = useMemo(() => {
+        // $ 当滚动大于需要展示的内容列表，锁定scroll down不需要在往下滚动
+        return scrollHeight >= props.branches.length - activeIndex
+    }, [props.branches.length, activeIndex, scrollHeight])
+
+    // *********************
+    // View
+    // *********************
+
     const statusColor = (status: BRANCH_STATUS) => {
         switch (status) {
             case BRANCH_STATUS.DELETED:
@@ -116,14 +141,6 @@ const List: React.FC<IList> = (props) => {
         }
     }
 
-    const lockScrollDown = useMemo(() => {
-        // $ 当滚动大于需要展示的内容列表，锁定scroll down不需要在往下滚动
-        return scrollHeight >= props.branches.length - activeIndex
-    }, [props.branches.length, activeIndex, scrollHeight])
-
-    // *********************
-    // View
-    // *********************
 
     const renderStatus = (item: any) => {
         if (item.status === BRANCH_STATUS.NONE) {

@@ -70,7 +70,6 @@ class Actions {
 
 
     async gbkill(args: Record<string, unknown>) {
-        console.log('args: ', args);
         const {
             force = false,
             sync = false,
