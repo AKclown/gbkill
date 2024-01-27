@@ -25,6 +25,9 @@ export const BRANCH_STATUS_TEXT = {
 // 默认合并主分支
 export const DEFAULT_MERGED_BRANCH = 'main'
 
+// 默认语言
+export const DEFAULT_LANGUAGE = 'EN'
+
 // !!!!: 最低版本限制 （后续测试到最低12.0.0版本）
 export const LOWEST_NODE_VERSION = '16.20.0';
 

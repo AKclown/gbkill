@@ -99,9 +99,14 @@ class Main {
             .name(pkg.name)
             .version(pkg.version)
             .description(pkg.description)
-            .option('--merged <name>', '指定合并分支')
             .option('--force', '是否强制删除分支')
-            .option(' --sync', '是否同时删除远程分支')
+            .option('--sync', '是否同时删除远程分支')
+            // TODO --submodule优先级降低
+            // .option('--submodule', '是否展示 git 子模块的分支列表')
+            .option('--merged <name>', '指定合并分支')
+            .option('--lock <names...>', '锁定分支不可被删除')
+            .option('--unlock <names...>', '解锁被锁定的分支')
+            .option('--language <name>', '指定脚手架语言')
             .action((args) => this.actions!.gbkill(args))
 
         // $ 监听未知命令

@@ -2,8 +2,9 @@ import { BranchSingleDeleteSuccess, simpleGit, SimpleGit } from 'simple-git'
 import { BRANCH_STATUS, DEFAULT_MERGED_BRANCH } from './constants.js';
 import task from './task.js';
 import eventBus, { EVENT_TYPE } from './eventBus.js';
+import { IWriteFile } from './actions.js';
 
-export interface GitOption {
+export interface GitOption extends Pick<IWriteFile, 'lock' | 'merged'> {
     force: boolean;
     sync: boolean;
 }
@@ -23,6 +24,8 @@ class Git {
         this.gitOptions = {
             force: false,
             sync: false,
+            lock: [],
+            merged: DEFAULT_MERGED_BRANCH
         }
     }
 
@@ -58,21 +61,24 @@ class Git {
     }
 
     async getMergedBranches(): Promise<Array<string>> {
-        const mergedBranch = DEFAULT_MERGED_BRANCH;
+        const mergedBranch = this.gitOptions.merged || DEFAULT_MERGED_BRANCH;
         const branchResult = await this.simpleGit.branch(['--merged', mergedBranch]);
         return branchResult.all;
     }
 
     async getLocalBranches() {
-        // 子模块也需要同步获取到
+        // TODO: 子模块也需要同步获取到
+        const lock = new Set(this.gitOptions.lock);
         const branchResult = await this.simpleGit.branchLocal();
         const mergedBranches = await this.getMergedBranches();
-        const branches = Object.values(branchResult.branches).map(branch => ({
-            name: branch.name,
-            value: branch.label,
-            merged: mergedBranches.includes(branch.name),
-            status: BRANCH_STATUS.NONE
-        }))
+        const branches = Object.values(branchResult.branches)
+            .filter(branch => !lock.has(branch.name))
+            .map(branch => ({
+                name: branch.name,
+                value: branch.label,
+                merged: mergedBranches.includes(branch.name),
+                status: BRANCH_STATUS.NONE
+            }))
         return branches
     }
 }
