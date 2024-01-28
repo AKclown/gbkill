@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Text } from 'ink';
-import Link from 'ink-link';
 import pkg from '../../package.json' assert { type: "json" };
 
 interface IExit {
@@ -9,18 +8,12 @@ interface IExit {
 
 const Exit: React.FC<IExit> = (props) => {
     return (
-        <Box paddingTop={1}>
+        <Box>
             {
-                props.code ? <Box>
-                    <Link url="https://github.com/AKclown/gbkill/issues">
-                        <Text>🤡 Go to the project to raise issue! 🤡</Text>
-                    </Link>
-                </Box> :
-                    <Box>
-                        <Link url="https://github.com/AKclown/gbkill">
-                            <Text> 🤡 Thanks for using {pkg.name}! Give suggestions for improvement 🤡</Text>
-                        </Link>
-                    </Box>
+                props.code ?
+                    <Text color='#EA3323'>🤡 Go to the project to fix issue! 🤡</Text>
+                    :
+                    <Text>🤡 Thanks for using {pkg.name}! 🤡</Text>
             }
         </Box>
     )
