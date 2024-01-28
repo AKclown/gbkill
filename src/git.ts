@@ -57,7 +57,8 @@ class Git {
             if (~message.indexOf('git branch -D')) {
                 // 需要强制才可以删除
                 branchResult.status = BRANCH_STATUS.NO_FORCE
-            } else if (~message.indexOf('failed to push some refs')) {
+            } else if (~message.indexOf('failed to push some refs')
+                || ~message.indexOf('Could not read from remote repository')) {
                 // 删除远程分支出错
                 branchResult.status = BRANCH_STATUS.NO_SYNC
             } else {

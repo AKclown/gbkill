@@ -121,7 +121,7 @@ const List: React.FC<IList> = (props) => {
             case BRANCH_STATUS.FAILED:
                 return '#F8312F'
             case BRANCH_STATUS.NO_SYNC:
-                return '#744C3D'
+                return '#F5692C'
             default:
                 return ''
         }
