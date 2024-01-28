@@ -23,8 +23,9 @@ class UI {
         console.clear();
     }
 
-    render(branches: Array<any>) {
-        inkRender(<Template branches={branches} onEventTrigger={this.onEventTrigger.bind(this)} />)
+    render(branches: Array<any>, merged: string) {
+        this.clearConsole()
+        inkRender(<Template branches={branches} merged={merged} onEventTrigger={this.onEventTrigger.bind(this)} />)
     }
 
     renderExit(code: number) {

@@ -4,9 +4,9 @@ import Git, { GitOption } from './git.js';
 import UI from './ui/index.js'
 import { DEFAULT_CLI_HOME, DEFAULT_LANGUAGE, DEFAULT_MERGED_BRANCH, userHome } from './constants.js';
 
-enum Language {
-    EN = 'EN',
-    ZH = 'ZH'
+export enum Language {
+    EN,
+    ZH
 }
 
 export interface IWriteFile {
@@ -19,7 +19,7 @@ export interface IWriteFile {
 interface IEnv {
     MERGED_BRANCH: string;
     LOCK: Array<string>;
-    LANGUAGE: string;
+    LANGUAGE: Language;
 }
 
 class Actions {
@@ -38,7 +38,7 @@ class Actions {
         let env: IEnv = {
             MERGED_BRANCH: DEFAULT_MERGED_BRANCH,
             LOCK: [],
-            LANGUAGE: DEFAULT_LANGUAGE,
+            LANGUAGE: DEFAULT_LANGUAGE as unknown as Language,
         };
         if (fs.existsSync(filePath)) {
             const file = fs.readFileSync(filePath);
@@ -89,7 +89,7 @@ class Actions {
             merged: env.MERGED_BRANCH
         } as GitOption
         const branches = await this.git.getLocalBranches()
-        this.ui.render(branches);
+        this.ui.render(branches, env.MERGED_BRANCH);
     }
 
     async exit(code: number) {

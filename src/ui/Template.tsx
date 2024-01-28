@@ -1,15 +1,9 @@
 import React from 'react';
 import { Box, Text, Spacer } from 'ink';
 import Logo from './Logo.js';
-import List from './List.js';
+import List, { IList } from './List.js';
 
-interface ITemplate {
-    branches: Array<any>;
-    onEventTrigger: (taskId: string, branchName: string) => void;
-}
-
-const Template: React.FC<ITemplate> = (props) => {
-    // const colors = ['#9999FE', '#FD999A']
+const Template: React.FC<IList> = (props) => {
     return (
         <Box flexDirection="column" >
             <Logo branchNumber={props.branches.length} />
@@ -19,7 +13,7 @@ const Template: React.FC<ITemplate> = (props) => {
                 <Text>merge</Text>
             </Box>
 
-            <List branches={props.branches} onEventTrigger={props.onEventTrigger} />
+            <List branches={props.branches} merged={props.merged} onEventTrigger={props.onEventTrigger} />
         </Box>
     )
 };

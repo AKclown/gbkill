@@ -1,11 +1,12 @@
 {
   "name": "gbkill",
   "version": "0.0.1",
-  "description": "Delete git branches in batches",
-  "exports": "./src/index.js",
+  "description": "🤡 Delete git branches in batches 🤡",
+  "packageManager": "pnpm@8.7.6",
+  "exports": "./lib/src/index.js",
   "type": "module",
   "bin": {
-    "gbkill": "./src/index.js"
+    "gbkill": "./lib/src/index.js"
   },
   "engines": {
     "node": ">=16.20.0"

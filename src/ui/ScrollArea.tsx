@@ -4,11 +4,11 @@ import React, { useRef, useReducer, useEffect } from "react";
 // https://github.com/vadimdemedes/ink/issues/432
 
 enum TRIGGER_TYPE {
-	SET_INNER_HEIGHT = 'setInnerHeight',
-	SCROLL_DOWN = 'scrollDown',
-	SCROLL_UP = 'scrollUp',
-	SET_HEIGHT = 'setHeight',
-	SET_SCROLL_TOP = 'setScrollTop'
+	SET_INNER_HEIGHT,
+	SCROLL_DOWN,
+	SCROLL_UP,
+	SET_HEIGHT,
+	SET_SCROLL_TOP
 }
 
 interface IAction {
@@ -21,7 +21,6 @@ interface IAction {
 interface IScrollArea {
 	height: number;
 	children: Array<React.JSX.Element>;
-	lockScrollDown: boolean;
 	activeIndex: number;
 	maxLen: number;
 }
@@ -62,7 +61,7 @@ const reducer = (state: any, action: IAction) => {
 	}
 };
 
-function ScrollArea({ height, children, lockScrollDown, activeIndex, maxLen }: IScrollArea) {
+function ScrollArea({ height, children, activeIndex, maxLen }: IScrollArea) {
 	const [state, dispatch] = useReducer(reducer, {
 		height,
 		scrollTop: 0
@@ -103,7 +102,6 @@ function ScrollArea({ height, children, lockScrollDown, activeIndex, maxLen }: I
 	useInput((input: string, key: Key) => {
 		if (key.downArrow) {
 			// $ 如果当前界面已经足够显示所有内容，滚动条不在往下滚动
-			if (lockScrollDown) return
 			dispatch({
 				type: TRIGGER_TYPE.SCROLL_DOWN
 			});

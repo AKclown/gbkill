@@ -1,11 +1,11 @@
 export enum EVENT_TYPE {
-    ERROR = 'error',
-    AMOUNT = 'amount'
+    ERROR,
+    AMOUNT
 }
 
 class EventBus {
     // 事件池
-    private eventPool: Map<string, Record<number, Function>>;
+    private eventPool: Map<EVENT_TYPE, Record<number, Function>>;
 
     private uuid: number
     constructor() {

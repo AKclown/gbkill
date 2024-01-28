@@ -1,4 +1,4 @@
-import { BranchSingleDeleteSuccess, simpleGit, SimpleGit } from 'simple-git'
+import { simpleGit, SimpleGit } from 'simple-git'
 import { BRANCH_STATUS, DEFAULT_MERGED_BRANCH } from './constants.js';
 import task from './task.js';
 import eventBus, { EVENT_TYPE } from './eventBus.js';
@@ -85,7 +85,7 @@ class Git {
             return branchResult.all;
         } catch (error: any) {
             if (~error.message.indexOf('malformed object name')) {
-                throw new Error(`--merged指定的${mergedBranch}分支不存在`)
+                throw new Error(`合并分支${mergedBranch}不存在,请设置--merged`)
             } else {
                 throw new Error(error.message)
             }
