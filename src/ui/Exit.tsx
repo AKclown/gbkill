@@ -8,7 +8,7 @@ interface IExit {
 
 const Exit: React.FC<IExit> = (props) => {
     return (
-        <Box paddingTop={1}>
+        <Box>
             {
                 props.code ?
                     <Text color='#EA3323'>🤡 Go to the project to fix issue! 🤡</Text>

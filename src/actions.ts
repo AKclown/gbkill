@@ -89,7 +89,7 @@ class Actions {
             merged: env.MERGED_BRANCH
         } as GitOption
         const branches = await this.git.getLocalBranches()
-        this.ui.render(branches);
+        this.ui.render(branches, env.MERGED_BRANCH);
     }
 
     async exit(code: number) {

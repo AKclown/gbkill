@@ -12,8 +12,9 @@ export enum Actions {
     SPACE = 'space',
     TAB = 'tab',
 }
-interface IList {
+export interface IList {
     branches: Array<any>;
+    merged: string;
     onEventTrigger: (taskId: string, branchName: string) => void;
 }
 
@@ -62,7 +63,7 @@ const List: React.FC<IList> = (props) => {
                     chianQueue(i, res.status, res.message)
                 })
             } else if (!merged && canDelete) {
-                chianQueue(i, BRANCH_STATUS.NO_MERGED)
+                chianQueue(i, BRANCH_STATUS.NO_MERGED, `warn: The Branch is not merged into '${props.merged}'`)
             }
         }
     }
@@ -137,11 +138,6 @@ const List: React.FC<IList> = (props) => {
         }
     }
 
-    const lockScrollDown = useMemo(() => {
-        // $ 当滚动大于需要展示的内容列表，锁定scroll down不需要在往下滚动
-        return scrollHeight >= props.branches.length - activeIndex
-    }, [props.branches.length, activeIndex, scrollHeight])
-
     // *********************
     // View
     // *********************
@@ -170,7 +166,6 @@ const List: React.FC<IList> = (props) => {
         <Box flexDirection="column" >
             <ScrollArea
                 height={scrollHeight}
-                lockScrollDown={lockScrollDown}
                 activeIndex={activeIndex}
                 maxLen={branches.length}
             >
