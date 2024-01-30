@@ -1,10 +1,10 @@
-## Delete git branches in batches 🤡
+## 🤡 Delete git branches in batches
 
 ![logo.png](./docs/logo.png)
 
 > 该工具将列出项目中的`git分支`列表，然后您可以`批量选择`需要删除的`git分支`。目的是为更加高效的`批量删除git分支`
 
-### 🤡 Installation
+### 🏜️ Installation
 
 您实际上不需要安装它即可使用它！只需使用以下命令:
 
@@ -31,7 +31,7 @@ $ npm i -g gbkill
 | ↓          | 按`↓` 移动选择分支                                            |
 | ↑          | 按`↑` 移动选择分支                                            |
 
-> ⚠️ 在 gbkill 界面上`操作分支`merge数据显示为**yes**(指的是`操作分支`合并到了`--merged 设置的分支`)。  
+> ⚠️ 在 gbkill 界面上`操作分支`merge 数据显示为**yes**(指的是`操作分支`合并到了`--merged 设置的分支`)。  
 > ⚠️ 当你在`该操作分支`执行删除时出现`NO_FORCE...The branch '...' is not fully merged...`。原因是`操作分支`没有合并到你`当前项目聚焦的分支`上。需要`强制删除`
 
 ### 🏖️ Options
@@ -62,5 +62,11 @@ $ npm i -g gbkill
 | NO_MERGED | 该分支未合并到`name分支`(`--merged <name>`)       | 🟣    |
 | NO_FORCE  | 该分支需要强制删除`git branch -D name`(`--force`) | 🟡    |
 | NO_SYNC   | 同步删除远程分支失败                              | 🟠    |
+
+### 🏞️ Issue
+
+> ⚠️ 目前不支持`Windows终端的Git`，工具受限于[ink](https://github.com/vadimdemedes/ink/issues/378)，后续查找替代方案。请使用`CMD`、`Vscode 终端的 Git...`
+
+### ⛺ 其他
 
 [EMO 图形地址](https://emojipedia.org/zh)

@@ -13,7 +13,7 @@ const Exit: React.FC<IExit> = (props) => {
                 props.code ?
                     <Text color='#EA3323'>🤡 Go to the project to fix issue! 🤡</Text>
                     :
-                    <Text>🤡 Thanks for using {pkg.name}! 🤡</Text>
+                    <Text color='#919191'>🤡 Thanks for using {pkg.name}! 🤡</Text>
             }
         </Box>
     )
