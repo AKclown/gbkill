@@ -3,7 +3,6 @@ import { Command } from 'commander';
 import colors from 'colors';
 import semver from 'semver';
 import fs from 'fs';
-import path from 'path';
 import downgradeRoot from 'downgrade-root';
 import sudoBlock from 'sudo-block';
 import pkg from '../package.json' assert { type: "json" };
