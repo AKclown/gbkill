@@ -1,6 +1,6 @@
 {
   "name": "gbkill",
-  "version": "0.0.1",
+  "version": "0.0.1-bate",
   "description": "🤡 Delete git branches in batches 🤡",
   "packageManager": "pnpm@8.7.6",
   "exports": "./lib/src/index.js",
