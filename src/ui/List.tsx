@@ -9,8 +9,8 @@ import useStdoutDimensions from './hooks/useStdoutDimensions.js';
 import { IBranchDeleteResult } from '../git.js';
 
 export enum Actions {
-    SPACE = 'space',
-    TAB = 'tab',
+    SPACE,
+    TAB,
 }
 export interface IList {
     branches: Array<any>;

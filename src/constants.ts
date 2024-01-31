@@ -2,13 +2,13 @@ import path from "path";
 
 // 分支状态
 export enum BRANCH_STATUS {
-    NONE = 'None',
-    DELETING = 'Deleting',
-    DELETED = 'Deleted',
-    FAILED = 'Failed',
-    NO_MERGED = 'NoMerged',
-    NO_FORCE = "NoForce",
-    NO_SYNC = "NoSync"
+    NONE,
+    DELETING,
+    DELETED,
+    FAILED,
+    NO_MERGED,
+    NO_FORCE,
+    NO_SYNC
 }
 
 // 分支状态文案

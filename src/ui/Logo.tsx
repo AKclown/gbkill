@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Box, Text, Newline } from 'ink';
 import Gradient from 'ink-gradient';
 import figlet from 'figlet';
-import pkg from '../../package.json' assert { type: "json" };
 import eventBus, { EVENT_TYPE } from '../eventBus.js';
 
 interface ILogo {
     branchNumber: number;
 }
 
-const name = figlet.textSync(pkg.name, {
+const name = figlet.textSync('GBKILL', {
     font: "Small Isometric1",
 })
 
@@ -50,12 +49,12 @@ const Logo: React.FC<ILogo> = (props) => {
 
             <Box marginLeft={2} flexDirection="column" >
                 <Box>
-                    <Text color="#EA3323">Error: </Text>
-                    <Text backgroundColor="#EA3323"> {error.length} </Text>
-                </Box>
-                <Box>
                     <Text color="blue">Batch: </Text>
                     <Text backgroundColor="blue"> {amount} </Text>
+                </Box>
+                <Box>
+                    <Text color="#EA3323">Error: </Text>
+                    <Text backgroundColor="#EA3323"> {error.length} </Text>
                 </Box>
                 <Box>
                     <Text>

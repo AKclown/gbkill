@@ -85,13 +85,11 @@ class Git {
             return branchResult.all;
         } catch (error: any) {
             if (~error.message.indexOf('malformed object name')) {
-                throw new Error(`合并分支${mergedBranch}不存在,请设置--merged`)
+                throw new Error(`合并分支${mergedBranch}不存在,请通过--merged <name>设置`)
             } else {
                 throw new Error(error.message)
             }
-
         }
-
     }
 
     async getLocalBranches() {

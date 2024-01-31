@@ -4,11 +4,11 @@ import React, { useRef, useReducer, useEffect } from "react";
 // https://github.com/vadimdemedes/ink/issues/432
 
 enum TRIGGER_TYPE {
-	SET_INNER_HEIGHT = 'setInnerHeight',
-	SCROLL_DOWN = 'scrollDown',
-	SCROLL_UP = 'scrollUp',
-	SET_HEIGHT = 'setHeight',
-	SET_SCROLL_TOP = 'setScrollTop'
+	SET_INNER_HEIGHT,
+	SCROLL_DOWN,
+	SCROLL_UP,
+	SET_HEIGHT,
+	SET_SCROLL_TOP
 }
 
 interface IAction {

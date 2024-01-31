@@ -1,11 +1,12 @@
 {
   "name": "gbkill",
-  "version": "0.0.1",
-  "description": "Delete git branches in batches",
-  "exports": "./src/index.js",
+  "version": "0.0.1-bate",
+  "description": "🤡 Delete git branches in batches 🤡",
+  "packageManager": "pnpm@8.7.6",
+  "exports": "./lib/src/index.js",
   "type": "module",
   "bin": {
-    "gbkill": "./src/index.js"
+    "gbkill": "./lib/src/index.js"
   },
   "engines": {
     "node": ">=16.20.0"
@@ -28,7 +29,6 @@
     "lib"
   ],
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "build": "yarn run clean:build && npx tsc",
     "dev": "yarn run clean:build && npx tsc --watch",
     "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts"
@@ -51,7 +51,7 @@
   "devDependencies": {
     "@types/figlet": "^1.5.8",
     "@types/inquirer": "^9.0.7",
-    "@types/node": "^20.11.0",
+    "@types/node": "^20.11.10",
     "@types/react": "^18.2.48",
     "@types/semver": "^7.5.6",
     "@types/shelljs": "^0.8.15",
