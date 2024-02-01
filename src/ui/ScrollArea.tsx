@@ -1,133 +1,130 @@
-import { Box, measureElement, useInput, Key } from "ink";
-import React, { useRef, useReducer, useEffect } from "react";
+import { Box, measureElement, useInput, Key } from 'ink';
+import React, { useRef, useReducer, useEffect } from 'react';
 
 // https://github.com/vadimdemedes/ink/issues/432
 
 enum TRIGGER_TYPE {
-	SET_INNER_HEIGHT,
-	SCROLL_DOWN,
-	SCROLL_UP,
-	SET_HEIGHT,
-	SET_SCROLL_TOP
+  SET_INNER_HEIGHT,
+  SCROLL_DOWN,
+  SCROLL_UP,
+  SET_HEIGHT,
+  SET_SCROLL_TOP,
 }
 
 interface IAction {
-	height?: number;
-	innerHeight?: number;
-	scrollTop?: number;
-	type: TRIGGER_TYPE
+  height?: number;
+  innerHeight?: number;
+  scrollTop?: number;
+  type: TRIGGER_TYPE;
 }
 
 interface IScrollArea {
-	height: number;
-	children: Array<React.JSX.Element>;
-	activeIndex: number;
-	maxLen: number;
+  height: number;
+  children: Array<React.JSX.Element>;
+  activeIndex: number;
+  maxLen: number;
 }
 
 const reducer = (state: any, action: IAction) => {
-	switch (action.type) {
-		case TRIGGER_TYPE.SET_HEIGHT:
-			return {
-				...state,
-				height: action.height
-			};
-		case TRIGGER_TYPE.SET_INNER_HEIGHT:
-			return {
-				...state,
-				innerHeight: action.innerHeight
-			};
-		case TRIGGER_TYPE.SCROLL_DOWN:
-			return {
-				...state,
-				scrollTop: Math.min(
-					state.innerHeight - state.height,
-					state.scrollTop + 1
-				)
-			};
+  switch (action.type) {
+    case TRIGGER_TYPE.SET_HEIGHT:
+      return {
+        ...state,
+        height: action.height,
+      };
+    case TRIGGER_TYPE.SET_INNER_HEIGHT:
+      return {
+        ...state,
+        innerHeight: action.innerHeight,
+      };
+    case TRIGGER_TYPE.SCROLL_DOWN:
+      return {
+        ...state,
+        scrollTop: Math.min(
+          state.innerHeight - state.height,
+          state.scrollTop + 1
+        ),
+      };
 
-		case TRIGGER_TYPE.SCROLL_UP:
-			return {
-				...state,
-				scrollTop: Math.max(0, state.scrollTop - 1)
-			};
-		case TRIGGER_TYPE.SET_SCROLL_TOP:
-			return {
-				...state,
-				scrollTop: action.scrollTop
-			};
-		default:
-			return state;
-	}
+    case TRIGGER_TYPE.SCROLL_UP:
+      return {
+        ...state,
+        scrollTop: Math.max(0, state.scrollTop - 1),
+      };
+    case TRIGGER_TYPE.SET_SCROLL_TOP:
+      return {
+        ...state,
+        scrollTop: action.scrollTop,
+      };
+    default:
+      return state;
+  }
 };
 
 function ScrollArea({ height, children, activeIndex, maxLen }: IScrollArea) {
-	const [state, dispatch] = useReducer(reducer, {
-		height,
-		scrollTop: 0
-	});
+  const [state, dispatch] = useReducer(reducer, {
+    height,
+    scrollTop: 0,
+  });
 
-	const innerRef = useRef(null);
+  const innerRef = useRef(null);
 
-	useEffect(() => {
-		const dimensions = measureElement(innerRef.current!);
+  useEffect(() => {
+    const dimensions = measureElement(innerRef.current!);
 
-		// 高度变高|高度变低 (让活动行永远在可视区内)
-		const bottom = maxLen - (activeIndex + 1);
-		let scrollTop = 0;
-		if (height <= bottom) {
-			// 选中item为第一条数据
-			scrollTop = activeIndex
-		} else {
-			// 显示条数为倒数height数据
-			scrollTop = maxLen - height
-		}
-		dispatch({
-			type: TRIGGER_TYPE.SET_SCROLL_TOP,
-			scrollTop
-		})
+    // 高度变高|高度变低 (让活动行永远在可视区内)
+    const bottom = maxLen - (activeIndex + 1);
+    let scrollTop = 0;
+    if (height <= bottom) {
+      // 选中item为第一条数据
+      scrollTop = activeIndex;
+    } else {
+      // 显示条数为倒数height数据
+      scrollTop = maxLen - height;
+    }
+    dispatch({
+      type: TRIGGER_TYPE.SET_SCROLL_TOP,
+      scrollTop,
+    });
 
-		dispatch({
-			type: TRIGGER_TYPE.SET_INNER_HEIGHT,
-			innerHeight: dimensions.height
-		});
+    dispatch({
+      type: TRIGGER_TYPE.SET_INNER_HEIGHT,
+      innerHeight: dimensions.height,
+    });
 
-		dispatch({
-			type: TRIGGER_TYPE.SET_HEIGHT,
-			height
-		})
+    dispatch({
+      type: TRIGGER_TYPE.SET_HEIGHT,
+      height,
+    });
+  }, [height]);
 
-	}, [height]);
+  useInput((input: string, key: Key) => {
+    if (key.downArrow) {
+      // $ 如果当前界面已经足够显示所有内容，滚动条不在往下滚动
+      dispatch({
+        type: TRIGGER_TYPE.SCROLL_DOWN,
+      });
+    }
 
-	useInput((input: string, key: Key) => {
-		if (key.downArrow) {
-			// $ 如果当前界面已经足够显示所有内容，滚动条不在往下滚动
-			dispatch({
-				type: TRIGGER_TYPE.SCROLL_DOWN
-			});
-		}
+    if (key.upArrow) {
+      dispatch({
+        type: TRIGGER_TYPE.SCROLL_UP,
+      });
+    }
+  });
 
-		if (key.upArrow) {
-			dispatch({
-				type: TRIGGER_TYPE.SCROLL_UP
-			});
-		}
-	});
-
-	return (
-		<Box height={height} flexDirection="column" overflow="hidden">
-			<Box
-				ref={innerRef}
-				flexShrink={0}
-				flexDirection="column"
-				marginTop={-state.scrollTop}
-			>
-				{children}
-			</Box>
-		</Box>
-	);
+  return (
+    <Box height={height} flexDirection="column" overflow="hidden">
+      <Box
+        ref={innerRef}
+        flexShrink={0}
+        flexDirection="column"
+        marginTop={-state.scrollTop}
+      >
+        {children}
+      </Box>
+    </Box>
+  );
 }
 
-export default ScrollArea
-
-
+export default ScrollArea;

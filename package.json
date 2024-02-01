@@ -31,7 +31,19 @@
   "scripts": {
     "build": "yarn run clean:build && npx tsc",
     "dev": "yarn run clean:build && npx tsc --watch",
-    "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts"
+    "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts",
+    "preinstall": "husky",
+    "commit": "git cz",
+    "lint-staged": "lint-staged",
+    "commitlint": "commitlint",
+    "lint": "npm run lint:es && npm run lint:prettier",
+    "lint:es": "eslint --ext .js,.jsx,.ts,.tsx ./ --cache",
+    "lint:prettier": "prettier --list-different \"**/*.{css,less,js,jsx,ts,tsx,json,yml,yaml,md}\"",
+    "fix": "npm run fix:es && npm run fix:prettier ",
+    "fix:es": "eslint --ext .js,.jsx,.ts,.tsx ./ --cache --fix",
+    "fix:prettier": "prettier --write \"**/*.{css,less,js,jsx,ts,tsx,json,yml,yaml,md}\"",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "prepare": "husky"
   },
   "dependencies": {
     "ansi-escapes": "^6.2.0",
@@ -49,15 +61,30 @@
     "sudo-block": "^5.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.6.0",
+    "@commitlint/config-conventional": "^18.6.0",
     "@types/figlet": "^1.5.8",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.10",
     "@types/react": "^18.2.48",
     "@types/semver": "^7.5.6",
     "@types/shelljs": "^0.8.15",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
     "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.0.7",
+    "lint-staged": "^15.2.1",
+    "prettier": "^3.2.4",
     "shelljs": "^0.8.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

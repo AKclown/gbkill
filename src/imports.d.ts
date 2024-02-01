@@ -1,1 +1,1 @@
-declare module "downgrade-root"
+declare module 'downgrade-root';

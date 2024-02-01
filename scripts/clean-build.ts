@@ -2,9 +2,8 @@
 import shell from 'shelljs';
 
 function run() {
-    shell.rm('-rf', 'lib/**');
-
+  shell.rm('-rf', 'lib/**');
 }
-run()
+run();
 
 export default run;

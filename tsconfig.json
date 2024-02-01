@@ -8,25 +8,25 @@
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "resolveJsonModule": true, // ESM doesn't yet support JSON modules.
     "jsx": "react",
-    "declaration": true,
+    // 关闭类型声明文件
+    "declaration": false,
     "newLine": "lf",
     "stripInternal": true,
     "strict": true,
     "noImplicitReturns": true,
     "noImplicitOverride": true,
-    // TODO: 暂时关闭
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": false,
     "noEmitOnError": true,
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "ts-node": {
-    "esm": true
+    "esm": true,
   },
-  "include": ["src"]
+  "include": ["src"],
 }
