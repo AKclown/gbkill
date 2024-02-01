@@ -2,15 +2,22 @@
   "env": {
     "node": true, // 只需将该项设置为 true 即可
     "commonjs": true,
-    "es2021": true
+    "es2021": true,
   },
   "parserOptions": {
     "ecmaVersion": 2021,
-    "sourceType": "module"
+    "sourceType": "module",
   },
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "no-prototype-builtins": "warn",
-    "no-useless-catch": "warn"
-  }
+    "no-useless-catch": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
+  },
 }

@@ -32,9 +32,7 @@
     "build": "yarn run clean:build && npx tsc",
     "dev": "yarn run clean:build && npx tsc --watch",
     "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts",
-    "preinstall": "husky install",
-    "prepack": "pinst --disable",
-    "postpack": "pinst --enable",
+    "preinstall": "husky",
     "commit": "git cz",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint",
@@ -44,7 +42,8 @@
     "fix": "npm run fix:es && npm run fix:prettier ",
     "fix:es": "eslint --ext .js,.jsx,.ts,.tsx ./ --cache --fix",
     "fix:prettier": "prettier --write \"**/*.{css,less,js,jsx,ts,tsx,json,yml,yaml,md}\"",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "prepare": "husky"
   },
   "dependencies": {
     "ansi-escapes": "^6.2.0",
@@ -70,6 +69,8 @@
     "@types/react": "^18.2.48",
     "@types/semver": "^7.5.6",
     "@types/shelljs": "^0.8.15",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.56.0",
@@ -78,9 +79,6 @@
     "lint-staged": "^15.2.1",
     "prettier": "^3.2.4",
     "shelljs": "^0.8.5",
-    "stylelint": "^16.2.0",
-    "stylelint-config-prettier": "^9.0.5",
-    "stylelint-config-standard": "^36.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
