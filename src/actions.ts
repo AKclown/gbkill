@@ -100,6 +100,10 @@ class Actions {
     this.ui.render(branches, env.MERGED_BRANCH);
   }
 
+  lowerVersion(lastVersion: string, currentVersion: string) {
+    this.ui.renderVersion(lastVersion, currentVersion);
+  }
+
   async exit(code: number) {
     this.ui.renderExit(code);
   }
