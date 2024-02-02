@@ -3,6 +3,7 @@ import { render as inkRender } from 'ink';
 import Template from './Template.js';
 import Exit from './Exit.js';
 import Git from '../git.js';
+import Version from './Version.js';
 
 class UI {
   private git: Git;
@@ -31,6 +32,17 @@ class UI {
         onEventTrigger={this.onEventTrigger.bind(this)}
       />
     );
+  }
+
+  renderVersion(lastVersion: string, currentVersion: string) {
+    this.clearConsole();
+    inkRender(
+      <>
+        <Version lastVersion={lastVersion} currentVersion={currentVersion} />
+        <Exit code={0} />
+      </>
+    );
+    process.exit(0);
   }
 
   renderExit(code: number) {

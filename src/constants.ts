@@ -28,7 +28,7 @@ export const DEFAULT_MERGED_BRANCH = 'main';
 // 默认语言
 export const DEFAULT_LANGUAGE = 'EN';
 
-// !!!!: 最低版本限制 （后续测试到最低12.0.0版本）
+// 最低版本限制
 export const LOWEST_NODE_VERSION = '16.20.0';
 
 // 脚手架存储的文件
