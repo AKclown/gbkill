@@ -48,12 +48,12 @@ const Logo: React.FC<ILogo> = props => {
 
       <Box marginLeft={2} flexDirection="column">
         <Box>
-          <Text color="blue">Batch: </Text>
-          <Text backgroundColor="blue"> {amount} </Text>
-        </Box>
-        <Box>
           <Text color="#EA3323">Error: </Text>
           <Text backgroundColor="#EA3323"> {error.length} </Text>
+        </Box>
+        <Box>
+          <Text color="blue">Batch: </Text>
+          <Text backgroundColor="blue"> {amount} </Text>
         </Box>
         <Box>
           <Text>

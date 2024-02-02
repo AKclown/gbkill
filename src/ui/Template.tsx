@@ -22,12 +22,11 @@ const Template: React.FC<IList> = props => {
           <Logo branchNumber={props.branches.length} />
           <Box>
             <Text backgroundColor="#C1FDB7" color="#040404">
-              {' '}
-              {'>'} Space delete merge; Tab delete unmerged; RightArrow batch
-              selection {'<'}{' '}
+              {' >'} Space delete merge; Tab delete unmerged; RightArrow batch
+              selection {'< '}
             </Text>
             <Spacer />
-            <Text>merge</Text>
+            <Text>merged</Text>
           </Box>
           <List
             branches={props.branches}

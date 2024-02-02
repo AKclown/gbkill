@@ -98,7 +98,7 @@ function ScrollArea({ height, children, activeIndex, maxLen }: IScrollArea) {
     });
   }, [height]);
 
-  useInput((input: string, key: Key) => {
+  useInput((_input: string, key: Key) => {
     if (key.downArrow) {
       // $ 如果当前界面已经足够显示所有内容，滚动条不在往下滚动
       dispatch({
