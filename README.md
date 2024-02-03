@@ -1,5 +1,11 @@
 ## 🤡 Delete git branches in batches [中文版](https://github.com/AKclown/gbkill/blob/main/README-ZH.md)
 
+<p align="center">
+<img alt="npm" src="https://img.shields.io/npm/dy/gbkill.svg">
+<img alt="npm version" src="https://img.shields.io/npm/v/gbkill.svg">
+<img alt="NPM" src="https://img.shields.io/npm/l/gbkill.svg">
+</p>
+
 In daily development, we create a git branch function every time we make a requirement. Over time, many local and online branches will be accumulated. Then it is particularly important to have a tool to delete git branches in batches at this time. **`GBKILL` is a tool created to solve this need, allowing you to delete git branches more efficiently**
 
 ![logo.png](./docs/logo.png)

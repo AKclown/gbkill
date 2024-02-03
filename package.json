@@ -1,12 +1,12 @@
 {
   "name": "gbkill",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.5",
   "description": "🤡 Delete git branches in batches 🤡",
   "packageManager": "pnpm@8.7.6",
-  "exports": "./lib/src/index.js",
+  "exports": "./lib/index.js",
   "type": "module",
   "bin": {
-    "gbkill": "./lib/src/index.js"
+    "gbkill": "./lib/index.js"
   },
   "engines": {
     "node": ">=16.20.0"
@@ -32,7 +32,6 @@
     "build": "yarn run clean:build && npx tsc",
     "dev": "yarn run clean:build && npx tsc --watch",
     "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts",
-    "preinstall": "husky",
     "commit": "git cz",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint",
@@ -42,8 +41,7 @@
     "fix": "npm run fix:es && npm run fix:prettier ",
     "fix:es": "eslint --ext .js,.jsx,.ts,.tsx ./ --cache --fix",
     "fix:prettier": "prettier --write \"**/*.{css,less,js,jsx,ts,tsx,json,yml,yaml,md}\"",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "prepare": "husky"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
   "dependencies": {
     "ansi-escapes": "^6.2.0",
