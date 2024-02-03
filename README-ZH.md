@@ -1,5 +1,11 @@
 ## 🤡 批量删除git分支
 
+<p align="center">
+<img alt="npm" src="https://img.shields.io/npm/dy/gbkill.svg">
+<img alt="npm version" src="https://img.shields.io/npm/v/gbkill.svg">
+<img alt="NPM" src="https://img.shields.io/npm/l/gbkill.svg">
+</p>
+
 在日常开发中我们每做一个需求就会创建一个git功能分支，时间久了本地和线上的分支就会被累计很多。那么此时有一个批量删除git分支的工具就显得尤为重要。**`GBKILL`正是为了解决这一需求也生的工具,让你更加高效的删除git分支**
 
 ![logo.png](./docs/logo.png)

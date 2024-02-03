@@ -199,7 +199,7 @@ const List: React.FC<IList> = props => {
               </Box>
               <Box width="4%" justifyContent="flex-end">
                 <Text wrap="truncate-end" {...highlight(index)}>
-                  {item.merged ? 'yes' : 'No'}
+                  {item.merged ? 'Yes' : 'No'}
                 </Text>
               </Box>
             </Box>
