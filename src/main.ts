@@ -94,7 +94,7 @@ class Main {
     }
   }
 
-  // TODO 暂未校验本地版本与线上版本
+  // 暂未校验本地版本与线上版本
   async checkGlobalUpdate() {
     // 1. 获取当前版本号和模块名
     const currentVersion = this.pkg!.version;
@@ -141,6 +141,7 @@ class Main {
     this.program.parse(process.argv);
   }
 
+  // TODO 退出时间有点久
   catchGlobalError() {
     process.on('uncaughtException', error => {
       this.actions!.exit(1);

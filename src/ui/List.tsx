@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Box, Text } from 'ink';
 import userInput, { IRange } from './hooks/userInput.js';
 import { BRANCH_STATUS, BRANCH_STATUS_TEXT } from '../constants.js';
@@ -96,17 +96,14 @@ const List: React.FC<IList> = props => {
 
   const [rows] = useStdoutDimensions();
   const { range, activeIndex } = userInput(branches.length, { onSpace, onTab });
-  const [scrollHeight, setScrollHeight] = useState(0);
 
   // *********************
   // Life Cycle Function
   // *********************
 
-  useEffect(() => {
+  const scrollHeight = useMemo(() => {
     // !!! 减去 数值 9，这个9是列表前面的行数. 解决选择时闪动问题，内容不能超过整体屏幕高度
-    const height =
-      props.branches.length > rows - 9 ? rows - 9 : props.branches.length;
-    setScrollHeight(height);
+    return props.branches.length > rows - 9 ? rows - 9 : props.branches.length;
   }, [rows, props.branches.length]);
 
   // *********************

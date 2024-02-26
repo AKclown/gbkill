@@ -12,6 +12,17 @@ In daily development, we create a git branch function every time we make a requi
 
 > This tool will list the `git branches` in the projects, and then you can `select in batches` the `git branches` that need to be deleted.
 
+## Table of Contents
+
+- [Install](#Install)
+- [Usage](#Usage)
+- [Parameter](#Parameter)
+- [State of Git branch](#State-of-Git-branch)
+- [Known issues](#Known-issues)
+- [Other](#Other)
+
+<a name="Install"></a>
+
 ## 🤡 Install
 
 Actually you don't need to install it to use it! Just use the following command:
@@ -25,6 +36,8 @@ Or you can install it:
 ```ts
 $ npm i -g gbkill
 ```
+
+<a name="Usage"></a>
 
 ## 🏕️ Usage
 
@@ -46,6 +59,10 @@ $ npm i -g gbkill
 
 > 3. When executing `gbkill --sync`, the `remote branch` of the target branch will be deleted first and then the `local branch`
 
+> 4. If you are sure what you are doing, use `gbkill --sync --force` and `Tab` to reduce the limit
+
+<a name="Parameter"></a>
+
 ## 🏖️ Parameter
 
 > Configurable parameters of `gbkill`. Some configuration parameters will be cached and shared globally in the `/user home directory/.gbkill` file.
@@ -61,6 +78,8 @@ $ npm i -g gbkill
 <!-- | --submodule          | Whether to display the branch list of git submodules                                                         | No    | -->
 <!-- | --language \<name\>  | Specify GBkill language `ZH\|EN`                                                           | Yes    | -->
 
+<a name="State of Git branch"></a>
+
 ## 🏝️ State of Git branch
 
 > Description corresponds to branch status.
@@ -75,9 +94,13 @@ $ npm i -g gbkill
 | NO_FORCE  | This branch needs to be forcibly deleted `git branch -D name`(`--force`) | 🟡    |
 | NO_SYNC   | Fail to delete remote branches synchronously                             | 🟠    |
 
+<a name="Known issues"></a>
+
 ## 🏞️ Known issues
 
 > ⚠️ `Git for Windows Terminal` is currently not supported, and the tool is limited to [ink](https://github.com/vadimdemedes/ink/issues/378). We will look for alternatives later. Please use `CMD`, `Vscode terminal's Git...` terminal
+
+<a name="Other"></a>
 
 ## ⛺ Other
 

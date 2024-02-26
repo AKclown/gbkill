@@ -12,6 +12,17 @@
 
 > 该工具将列出项目中的`git分支`列表，然后您可以`批量选择`需要删除的`git分支`
 
+## Table of Contents
+
+- [安装](#Install)
+- [用法](#Usage)
+- [参数](#Parameter)
+- [Git分支状态](#State-of-Git-branch)
+- [已知问题](#Known-issues)
+- [其它](#Other)
+
+<a name="Install"></a>
+
 ## 🤡 安装
 
 您实际上不需要安装它即可使用它！只需使用以下命令:
@@ -25,6 +36,8 @@ $ npx gbkill
 ```ts
 $ npm i -g gbkill
 ```
+
+<a name="Usage"></a>
 
 ## 🏕️ 用法
 
@@ -46,6 +59,10 @@ $ npm i -g gbkill
 
 > 3. 当执行`gbkill --sync`时，会先删除目标分支的`远程分支`再删除`本地分支`
 
+> 4. 如果你确定你所执行的操作，请使用`gbkill --sync --force`以及`Tab`减少限制
+
+<a name="Parameter"></a>
+
 ## 🏖️ 参数
 
 > `gbkill`的可配置参数，部分配置参数会被缓存到`/用户主目录/.gbkill`文件中全局共享
@@ -61,6 +78,8 @@ $ npm i -g gbkill
 <!-- | --submodule          | 是否展示 git 子模块的分支列表                                                         | 否    | -->
 <!-- | --language \<name\>  | 指定 GBkill 语言 `ZH\|EN`                                                             | 是    | -->
 
+<a name="State of Git branch"></a>
+
 ## 🏝️ Git分支状态
 
 > 分支状态对应的描述
@@ -75,9 +94,13 @@ $ npm i -g gbkill
 | NO_FORCE  | 该分支需要强制删除`git branch -D name`(`--force`) | 🟡    |
 | NO_SYNC   | 同步删除远程分支失败                              | 🟠    |
 
+<a name="Known issues"></a>
+
 ## 🏞️ 已知问题
 
 > ⚠️ 目前不支持`Windows终端的Git`，工具受限于[ink](https://github.com/vadimdemedes/ink/issues/378)，后续查找替代方案。请使用`CMD`、`Vscode 终端的 Git...`终端
+
+<a name="Other"></a>
 
 ## ⛺ 其它
 
