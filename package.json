@@ -2,7 +2,6 @@
   "name": "gbkill",
   "version": "0.0.1-beta.5",
   "description": "🤡 Delete git branches in batches 🤡",
-  "packageManager": "pnpm@8.7.6",
   "exports": "./lib/index.js",
   "type": "module",
   "bin": {
@@ -29,16 +28,16 @@
     "lib"
   ],
   "scripts": {
-    "build": "yarn run clean:build && npx tsc",
-    "dev": "yarn run clean:build && npx tsc --watch",
+    "build": "pnpm run clean:build && npx tsc",
+    "dev": "pnpm run clean:build && npx tsc --watch",
     "clean:build": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./scripts/clean-build.ts",
     "commit": "git cz",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint",
-    "lint": "npm run lint:es && npm run lint:prettier",
+    "lint": "pnpm run lint:es && pnpm run lint:prettier",
     "lint:es": "eslint --ext .js,.jsx,.ts,.tsx ./ --cache",
     "lint:prettier": "prettier --list-different \"**/*.{css,less,js,jsx,ts,tsx,json,yml,yaml,md}\"",
-    "fix": "npm run fix:es && npm run fix:prettier ",
+    "fix": "pnpm run fix:es && pnpm run fix:prettier ",
     "fix:es": "eslint --ext .js,.jsx,.ts,.tsx ./ --cache --fix",
     "fix:prettier": "prettier --write \"**/*.{css,less,js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
