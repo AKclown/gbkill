@@ -8,7 +8,7 @@ import sudoBlock from 'sudo-block';
 // import pkg from '../package.json' assert { type: "json" };
 import { readFileSync } from 'fs';
 import Actions from './actions.js';
-import { userHome, LOWEST_NODE_VERSION } from './constants.js';
+import { userHome, LOWEST_NODE_VERSION, ERROR_TYPE } from './constants.js';
 import Npm from './npm.js';
 
 class Main {
@@ -64,7 +64,7 @@ class Main {
     if (!semver.gte(currentVersion, lowestVersion)) {
       throw new Error(
         colors.red(
-          `${this.pkg!.name} Need to install NodeJS version ${lowestVersion} or above`
+          `[${ERROR_TYPE.USER}]${this.pkg!.name} Need to install NodeJS version ${lowestVersion} or above`
         )
       );
     }
@@ -88,7 +88,7 @@ class Main {
     if (!(home && fs.existsSync(home))) {
       throw new Error(
         colors.red(
-          `The home directory for the current logged-in user does not exist`
+          `[${ERROR_TYPE.USER}]The home directory for the current logged-in user does not exist`
         )
       );
     }
@@ -143,9 +143,20 @@ class Main {
 
   catchGlobalError() {
     process.on('uncaughtException', error => {
-      this.actions!.exit(1);
-      console.log(colors.red(`${error.message}`));
-      process.exit(1);
+      let code = 1;
+      // $ 如果错误类型为ERROR_TYPE.USER表示用户自身原因。不展示错误`fix issue`提示
+      const regex = new RegExp(`\\[${ERROR_TYPE.USER}\\]`);
+      let message = error.message;
+      if (regex.test(message)) {
+        code = 0;
+        message = message.replace(regex, '');
+        message = colors.yellow(`${message}`);
+      } else {
+        message = colors.red(`${message}`);
+      }
+      this.actions!.exit(code);
+      console.log(message);
+      process.exit(code);
     });
   }
 
