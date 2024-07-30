@@ -1,5 +1,9 @@
 import { simpleGit, SimpleGit } from 'simple-git';
-import { BRANCH_STATUS, DEFAULT_MERGED_BRANCH } from './constants.js';
+import {
+  BRANCH_STATUS,
+  DEFAULT_MERGED_BRANCH,
+  ERROR_TYPE,
+} from './constants.js';
 import task from './task.js';
 import eventBus, { EVENT_TYPE } from './eventBus.js';
 import { IWriteFile } from './actions.js';
@@ -94,7 +98,7 @@ class Git {
     } catch (error: any) {
       if (~error.message.indexOf('malformed object name')) {
         throw new Error(
-          `合并分支${mergedBranch}不存在,请通过--merged <name>设置`
+          `[${ERROR_TYPE.USER}]The merged branch ${mergedBranch} does not exist, please set it via --merged <name>`
         );
       } else {
         throw new Error(error.message);

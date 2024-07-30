@@ -42,7 +42,7 @@ class EventBus {
 
   emit(eventName: EVENT_TYPE, payload: any) {
     if (!this.eventPool.has(eventName)) {
-      throw new Error(`从未订阅过此事件${eventName}`);
+      throw new Error(`Never subscribed to this event ${eventName}`);
     }
     const callbacks = this.eventPool.get(eventName) || {};
     for (const id in callbacks) {
@@ -52,7 +52,9 @@ class EventBus {
 
   clear(eventName: EVENT_TYPE) {
     if (!eventName) {
-      throw new Error(`需提供要被清除的事件名称${eventName}`);
+      throw new Error(
+        `You need to provide the event name to be cleared ${eventName}`
+      );
     }
     this.eventPool.delete(eventName);
   }

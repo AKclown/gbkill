@@ -22,6 +22,12 @@ export const BRANCH_STATUS_TEXT = {
   [BRANCH_STATUS.NO_SYNC]: 'NO_SYNC',
 };
 
+// 错误类型
+export enum ERROR_TYPE {
+  USER = 'USER',
+  SYSTEM = 'SYSTEM',
+}
+
 // 默认合并主分支
 export const DEFAULT_MERGED_BRANCH = 'main';
 
@@ -38,7 +44,9 @@ export function userHome(...args: any[]) {
   const home =
     process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
   if (!home) {
-    throw new Error('Could not find a valid user home path.');
+    throw new Error(
+      `[${ERROR_TYPE.USER}]Could not find a valid user home path.`
+    );
   }
   return path.resolve.apply(
     path.resolve,
