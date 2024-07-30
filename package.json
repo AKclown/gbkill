@@ -1,11 +1,11 @@
 {
   "name": "gbkill",
-  "version": "0.0.1-beta.5",
+  "version": "0.0.1-beta.6",
   "description": "🤡 Delete git branches in batches 🤡",
   "exports": "./lib/index.js",
   "type": "module",
   "bin": {
-    "gbkill": "./lib/index.js"
+    "gbkill": "lib/index.js"
   },
   "engines": {
     "node": ">=16.20.0"
@@ -13,7 +13,7 @@
   "author": "AKclown",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AKclown/gbkill"
+    "url": "git+https://github.com/AKclown/gbkill.git"
   },
   "license": "MIT",
   "keywords": [
