@@ -29,4 +29,5 @@
     "esm": true,
   },
   "include": ["src"],
+  "exclude": ["lib", "__tests__"],
 }

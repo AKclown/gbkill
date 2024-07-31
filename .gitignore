@@ -1,6 +1,10 @@
+# project
 /node_modules/**
 /lib/**
 
 # ide
 /.idea/**
 /.vscode/**
+
+# test
+__tests__/coverage/**
